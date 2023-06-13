@@ -1,29 +1,30 @@
-import { useState } from "react";
+import NavBarLayout from "../components/layout/NavBarLayout";
+import HeadComponent from "../components/head/Head";
+
 import classes from "../components/home/HomePage.module.css";
 const HomePage = () => {
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-  const posterSrc = "./solid-black.jpeg";
-  const videoSrc = "./mainc3plus.mp4";
-
-  const handleVideoLoaded = () => setIsVideoLoaded(true);
+  const posterSrc = "./home/solid-black.jpeg";
 
   return (
-    <section className={classes.home}>
-      <div className={classes["pic-box"]}>
-        {/* {!isVideoLoaded && (
-          <img className={classes.video} src={posterSrc} alt="Poster image" />
-        )} */}
-        <video
-          className={classes["video"]}
-          poster={posterSrc}
-          autoPlay
-          muted
-          loop
-        >
-          <source src="/mainc3plus.mp4" type="video/mp4" />
-        </video>
-      </div>
-    </section>
+    <>
+      <HeadComponent
+        title="Inicio"
+        description="En esta plataforma encontrarás contenido de series, cursos y podcast que te brindarán herramientas que fortalezcan tu vida y equipen tu llamado"
+      ></HeadComponent>
+      <NavBarLayout>
+        <div className={classes["pic-box"]}>
+          <video
+            className={classes["video"]}
+            poster={posterSrc}
+            autoPlay
+            muted
+            loop
+          >
+            <source src="/home/mainc3plus.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </NavBarLayout>
+    </>
   );
 };
 
