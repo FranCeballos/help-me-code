@@ -1,5 +1,6 @@
 import NavBarLayout from "../components/layout/NavBarLayout";
 import HeadComponent from "../components/head/Head";
+import SlidersContainer from "../components/home/SlidersContainer";
 
 import classes from "../components/home/HomePage.module.css";
 const HomePage = () => {
@@ -13,6 +14,7 @@ const HomePage = () => {
       ></HeadComponent>
       <NavBarLayout>
         <div className={classes["pic-box"]}>
+          <div className={classes["video__overlay"]}></div>
           <video
             className={classes["video"]}
             poster={posterSrc}
@@ -23,6 +25,7 @@ const HomePage = () => {
             <source src="/home/mainc3plus.mp4" type="video/mp4" />
           </video>
         </div>
+        <SlidersContainer />
       </NavBarLayout>
     </>
   );
