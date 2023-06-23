@@ -28,7 +28,7 @@ const LogInForm = () => {
           />
         </div>
         <div className={classes["login__buttons-box-end"]}>
-          <Link href="/signup">
+          <Link href="/registrarse">
             <Button variant="text">Crear cuenta</Button>
           </Link>
           <Button variant="contained">Ingresar</Button>

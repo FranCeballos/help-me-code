@@ -1,4 +1,4 @@
-.grid__two-columns {
+.grid__two {
   width: 100vw;
   height: 100vh;
   display: grid;
@@ -23,4 +23,15 @@
   height: 100%;
   object-position: center;
   object-fit: cover;
+}
+
+@media screen and (max-width: 970px) {
+  .grid__two {
+    grid-template-rows: 0.3fr 3fr;
+    grid-template-columns: 1fr;
+  }
+
+  .pic-box {
+    height: 30vh;
+  }
 }

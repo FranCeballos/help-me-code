@@ -1,6 +1,6 @@
 import NavBarLayout from "../components/layout/NavBarLayout";
 import HeadComponent from "../components/head/Head";
-import SlidersContainer from "../components/home/SlidersContainer";
+import RowsContainer from "../components/slider/RowsContainer";
 
 import classes from "../components/home/HomePage.module.css";
 const HomePage = () => {
@@ -19,13 +19,14 @@ const HomePage = () => {
             className={classes["video"]}
             poster={posterSrc}
             autoPlay
+            playsInline
             muted
             loop
           >
             <source src="/home/mainc3plus.mp4" type="video/mp4" />
           </video>
         </div>
-        <SlidersContainer />
+        <RowsContainer />
       </NavBarLayout>
     </>
   );
