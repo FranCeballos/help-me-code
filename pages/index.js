@@ -19,9 +19,9 @@ const HomePage = () => {
             className={classes["video"]}
             poster={posterSrc}
             autoPlay
-            playsInline
             muted
             loop
+            playsInline
           >
             <source src="/home/mainc3plus.mp4" type="video/mp4" />
           </video>

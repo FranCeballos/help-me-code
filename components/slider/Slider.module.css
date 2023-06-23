@@ -1,3 +1,6 @@
+.container {
+  min-height: 80vw;
+}
 .slider__container {
   display: flex;
   width: 100%;
@@ -9,6 +12,7 @@
   display: flex;
   flex-grow: 0;
   margin: 0 1rem;
+  height: auto;
 }
 
 .row__title {
@@ -48,4 +52,18 @@
 }
 .disabled {
   cursor: default;
+}
+
+@media screen and (max-width: 1024px) {
+  .slider__container {
+    overflow-x: scroll;
+    margin-top: 1rem;
+    margin-left: 1rem;
+  }
+  .slider {
+    gap: 1rem;
+  }
+  .handle {
+    display: none;
+  }
 }

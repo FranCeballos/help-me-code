@@ -64,6 +64,10 @@
   text-decoration: none;
 }
 
+.register__button {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 970px) {
   .login__box {
     min-height: 100vh;

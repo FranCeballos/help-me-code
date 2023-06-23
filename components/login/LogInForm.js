@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { TextField, Button, IconButton } from "@mui/material";
-import { Home } from "@mui/icons-material";
 import LogInFormWrapper from "../UI/LogInFormWrapper";
 import classes from "./LogInForm.module.css";
 
@@ -28,7 +27,7 @@ const LogInForm = () => {
           />
         </div>
         <div className={classes["login__buttons-box-end"]}>
-          <Link href="/registrarse">
+          <Link className={classes["register__button"]} href="/registrarse">
             <Button variant="text">Crear cuenta</Button>
           </Link>
           <Button variant="contained">Ingresar</Button>

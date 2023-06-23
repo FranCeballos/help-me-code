@@ -48,7 +48,7 @@ const MainHeader = () => {
           </ul>
         </div>
         <div>
-          {!isSearching && (
+          {/* {!isSearching && (
             <IconButton
               onClick={isSearchingHandler}
               aria-label="search"
@@ -57,8 +57,8 @@ const MainHeader = () => {
             >
               <SearchIcon fontSize="inherit" />
             </IconButton>
-          )}
-          {isSearching && (
+          )} */}
+          {/* {isSearching && (
             <FormControl
               sx={{ width: "25rem" }}
               variant="outlined"
@@ -79,7 +79,7 @@ const MainHeader = () => {
                 inputRef={searchInputRef}
               />
             </FormControl>
-          )}
+          )} */}
           <Link href="/ingresar">
             <IconButton
               aria-label="login"
