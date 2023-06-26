@@ -26,6 +26,8 @@ body {
 }
 
 :root {
-  --main-bg-color: #141414;
+  --main-bg-color: #000000;
   --slider-padding: 15rem;
 }
+
+/* #141414 */

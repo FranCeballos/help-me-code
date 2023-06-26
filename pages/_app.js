@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@/styles/globals.css";
 
@@ -26,10 +27,12 @@ const darkTheme = createTheme({
 
 export default function App({ Component, pageProps }) {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <main>
-        <Component {...pageProps} />
-      </main>
-    </ThemeProvider>
+    <AnimatePresence mode="wait" initial={false}>
+      <ThemeProvider theme={darkTheme}>
+        <main>
+          <Component {...pageProps} />
+        </main>
+      </ThemeProvider>
+    </AnimatePresence>
   );
 }

@@ -1,4 +1,4 @@
-import LogInForms from "./LogInForm";
+import LogInForm from "./LogInForm";
 import classes from "./LogIn.module.css";
 
 const LogIn = () => {
@@ -9,7 +9,7 @@ const LogIn = () => {
           <source src="/login/login1.mp4" type="video/mp4" />
         </video>
       </div>
-      <LogInForms />
+      <LogInForm />
     </div>
   );
 };
