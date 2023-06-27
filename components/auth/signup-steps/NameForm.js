@@ -1,34 +1,41 @@
 import Link from "next/link";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, FormHelperText } from "@mui/material";
+import TitleForm from "./TitleForm";
 import AuthFormWrapper from "../../UI/AuthFormWrapper";
 import classes from "../AuthForm.module.css";
-import Image from "next/image";
+import { useState, useRef } from "react";
 
 const NameForm = ({ onNext }) => {
+  const [firstnameHasError, setFirstnameHasError] = useState(false);
+  const firstNameRef = useRef();
+  const lastNameRef = useRef();
+
+  const nameSubmitHandler = () => {
+    const firstName = firstNameRef.current.value.trim();
+    const lastName = lastNameRef.current.value.trim() || null;
+    let hasValidationError = false;
+    if (!firstName) {
+      hasValidationError = true;
+      setFirstnameHasError(true);
+    }
+    onNext({ firstName, lastName }, hasValidationError);
+  };
   return (
     <AuthFormWrapper isLogin={false}>
-      <div className={classes["auth__title-box"]}>
-        <div className={classes["auth__image-box"]}>
-          <Image
-            className={classes["auth__image"]}
-            src="/logo-clear-white.png"
-            width={200}
-            height={200}
-            alt="C3 Logo"
-          />
-        </div>
-        <h1 className={classes["auth__title"]}>Crea una cuenta C3+</h1>
-        <h2 className={classes["auth__sub-title"]}>Ingresa tu nombre</h2>
-      </div>
-      <div>
+      <TitleForm title="Crea una cuenta C3+" description="Ingresa tu nombre" />
+      <div className={classes["auth__inputs-box"]}>
         <TextField
           id="name"
+          inputRef={firstNameRef}
           label="Nombre"
           variant="outlined"
           fullWidth
           margin="dense"
+          error={firstnameHasError}
+          helperText={firstnameHasError ? "Ingresar nombre" : ""}
         />
         <TextField
+          inputRef={lastNameRef}
           id="lastname"
           label="Apellido (opcional)"
           variant="outlined"
@@ -36,17 +43,14 @@ const NameForm = ({ onNext }) => {
           margin="dense"
         />
       </div>
-      <div className={classes["auth__buttons-box-end"]}>
+      <div className={classes["auth__buttons-box-between"]}>
         <Link href="/ingresar" className={classes["register__button"]}>
           <Button variant="text">¿Ya tenés cuenta?</Button>
         </Link>
-        <Button onClick={onNext("birth")} variant="contained">
+        <Button onClick={nameSubmitHandler} variant="contained">
           Siguiente
         </Button>
       </div>
-      {/* <Link className={classes["auth__home-button"]} href="/">
-        <Button variant="outlined">INICIO</Button>
-      </Link> */}
     </AuthFormWrapper>
   );
 };

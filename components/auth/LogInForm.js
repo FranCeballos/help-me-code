@@ -36,7 +36,7 @@ const LogInForm = () => {
             margin="dense"
           />
         </div>
-        <div className={classes["auth__buttons-box-end"]}>
+        <div className={classes["auth__buttons-box-between"]}>
           <Link href="/registrarse" className={classes["register__button"]}>
             <Button variant="text">Crear cuenta</Button>
           </Link>
