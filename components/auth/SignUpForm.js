@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   progressBar20,
@@ -7,6 +7,7 @@ import {
   progressBar80,
   progressBar100,
 } from "@/animations/progress-bar";
+import { createUser } from "@/lib/auth";
 import NameForm from "./signup-steps/NameForm";
 import BirthForm from "./signup-steps/BirthForm";
 import EmailForm from "./signup-steps/EmailForm";
@@ -17,17 +18,13 @@ const SignUpForm = () => {
   const [formView, setFormView] = useState("name");
   const [signupInfo, setSignupInfo] = useState({});
 
-  const changeFormView = (view) => {
-    setFormView(view);
-  };
-
   console.log(signupInfo);
 
   const nameSubmitHandler = (data, hasError) => {
     if (hasError) return;
 
     setSignupInfo({ firstName: data.firstName, lastName: data.lastName });
-    changeFormView("birth");
+    setFormView("birth");
   };
 
   const birthSubmitHandler = (data, hasError) => {
@@ -36,7 +33,7 @@ const SignUpForm = () => {
     setSignupInfo((prevInfo) => {
       return { ...prevInfo, birthDate: data.date, gender: data.gender };
     });
-    changeFormView("email");
+    setFormView("email");
   };
 
   const emailSubmitHandler = (data, hasError) => {
@@ -45,12 +42,25 @@ const SignUpForm = () => {
     setSignupInfo((prevInfo) => {
       return { ...prevInfo, email: data.email };
     });
-    changeFormView("password");
+    setFormView("password");
   };
 
-  const passwordSubmitHandler = () => {};
+  const passwordSubmitHandler = async (data, hasError) => {
+    if (hasError) return;
 
-  const finalSubmitHandler = () => {};
+    setSignupInfo((prevInfo) => {
+      return {
+        ...prevInfo,
+        password: data.password,
+      };
+    });
+    try {
+      const result = await createUser(signupInfo);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   let formViewComponent = <NameForm onNext={nameSubmitHandler} />;
   let progressBarLevel = progressBar20;
@@ -82,7 +92,7 @@ const SignUpForm = () => {
           variants={progressBarLevel}
           initial={"initial"}
           animate={"animate"}
-          transition={{ duration: 0.3 }}
+          transition={{ type: "spring", duration: 0.5 }}
         />
         {formViewComponent}
       </div>

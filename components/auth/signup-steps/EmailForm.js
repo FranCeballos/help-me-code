@@ -2,12 +2,8 @@ import { useState, useRef } from "react";
 import { TextField, Button } from "@mui/material";
 import TitleForm from "./TitleForm";
 import AuthFormWrapper from "../../UI/AuthFormWrapper";
+import { validateEmail } from "@/lib/client-input-validation";
 import classes from "../AuthForm.module.css";
-
-function validateEmail(email) {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-  return emailRegex.test(email);
-}
 
 const EmailForm = ({ onNext }) => {
   const initialErrorObj = { status: false, message: " " };
