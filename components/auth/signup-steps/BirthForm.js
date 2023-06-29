@@ -23,7 +23,6 @@ const BirthForm = ({ onNext }) => {
     const date = dateRef.current.value;
     const gender = genderRef.current.value;
     let hasValidationError = false;
-    console.log("Date", date);
 
     setGenderHasError(false);
     setDateHasError(false);

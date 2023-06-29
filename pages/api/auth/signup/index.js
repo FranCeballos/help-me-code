@@ -5,7 +5,6 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { firstName, lastName, birthDate, gender, email, password } =
       req.body;
-    console.log(req.body);
 
     let client;
     try {
@@ -38,9 +37,11 @@ export default async function handler(req, res) {
         message: "Fallo al conectar con la base de datos ! Pruebe en un minuto",
         serverError: true,
       });
+      client.close();
       return;
     }
 
     res.status(201).json({ message: "Created user!", serverError: false });
+    client.close();
   }
 }

@@ -29,19 +29,23 @@ const handler = async (req, res) => {
       existingUser = await db.collection("users").findOne({ email: email });
     } catch (error) {
       res.status(500).json({
-        message: "'Fallo al conectar con la base de datos!'",
+        message: "Fallo al conectar con la base de datos! Pruebe en un minuto",
         emailIsValid,
       });
+      client.close();
     }
 
     if (existingUser) {
-      return res.status(422).json({
+      res.status(422).json({
         message: "Ya hay una cuenta asociada a ese email. Usar uno distinto.",
         emailIsValid,
       });
+      client.close();
+      return;
     }
 
     res.status(201).json({ message: "Email valido", emailIsValid });
+    client.close();
   }
 };
 

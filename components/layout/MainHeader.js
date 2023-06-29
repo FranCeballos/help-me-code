@@ -10,9 +10,14 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import LoginIcon from "@mui/icons-material/Login";
+import LogoutIcon from "@mui/icons-material/Logout";
 import classes from "./MainHeader.module.css";
+import { useSession, signOut } from "next-auth/react";
 
 const MainHeader = () => {
+  const { data: session, status } = useSession();
+  console.log(session, status);
+
   const [isSearching, setIsSearching] = useState(false);
   const searchInputRef = useRef();
 
@@ -26,6 +31,10 @@ const MainHeader = () => {
 
   const notSearchingHandler = () => {
     setIsSearching(false);
+  };
+
+  const logoutHandler = () => {
+    signOut({ redirect: false });
   };
 
   return (
@@ -80,15 +89,27 @@ const MainHeader = () => {
               />
             </FormControl>
           )} */}
-          <Link href="/ingresar">
+          {!session && status !== "loading" && (
+            <Link href="/ingresar">
+              <IconButton
+                aria-label="login"
+                size="large"
+                style={{ fontSize: 25, padding: 10, marginLeft: 20 }}
+              >
+                <LoginIcon fontSize="inherit" />
+              </IconButton>
+            </Link>
+          )}
+          {session && (
             <IconButton
+              onClick={logoutHandler}
               aria-label="login"
               size="large"
               style={{ fontSize: 25, padding: 10, marginLeft: 20 }}
             >
-              <LoginIcon fontSize="inherit" />
+              <LogoutIcon fontSize="inherit" />
             </IconButton>
-          </Link>
+          )}
         </div>
       </nav>
     </header>

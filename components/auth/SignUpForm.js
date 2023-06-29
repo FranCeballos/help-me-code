@@ -12,13 +12,12 @@ import NameForm from "./signup-steps/NameForm";
 import BirthForm from "./signup-steps/BirthForm";
 import EmailForm from "./signup-steps/EmailForm";
 import PasswordForm from "./signup-steps/PasswordForm";
+import SuccessForm from "./signup-steps/SuccesForm";
 import classes from "./AuthForm.module.css";
 
 const SignUpForm = () => {
   const [formView, setFormView] = useState("name");
   const [signupInfo, setSignupInfo] = useState({});
-
-  console.log(signupInfo);
 
   const nameSubmitHandler = (data, hasError) => {
     if (hasError) return;
@@ -51,14 +50,17 @@ const SignUpForm = () => {
     setSignupInfo((prevInfo) => {
       return {
         ...prevInfo,
-        password,
+        password: password,
       };
     });
-    console.log(hasPasswordError);
     if (passwordError || passwordConfirmError) return;
 
     const createUserResponse = await createUser(signupInfo);
-    console.log(createUserResponse);
+
+    if (!createUserResponse.serverError) {
+      setFormView("success");
+      setSignupInfo({});
+    }
   };
 
   let formViewComponent = <NameForm onNext={nameSubmitHandler} />;
@@ -77,6 +79,11 @@ const SignUpForm = () => {
       formViewComponent = <PasswordForm onNext={passwordSubmitHandler} />;
       progressBarLevel = progressBar80;
       break;
+    case "success":
+      formViewComponent = <SuccessForm />;
+      progressBarLevel = progressBar100;
+      break;
+
     case "default":
       formViewComponent = <NameForm onNext={changeFormView} />;
       progressBarLevel = progressBar20;

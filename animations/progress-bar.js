@@ -39,6 +39,7 @@ export const progressBar100 = {
     scaleX: 0.8,
   },
   animate: {
+    background: "#96e6a1",
     scaleX: 1,
   },
 };

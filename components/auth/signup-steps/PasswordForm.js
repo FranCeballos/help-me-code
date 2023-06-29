@@ -21,10 +21,8 @@ const PasswordForm = ({ onNext }) => {
   const passwordSubmitHandler = async () => {
     const password = passwordRef.current.value;
     const passwordConfirm = passwordConfirmRef.current.value;
-    console.log(password, passwordConfirm);
 
     const result = await validatePasswordWithServer(password, passwordConfirm);
-    console.log(result);
     setPasswordErrors(result);
     onNext({ password }, result);
   };

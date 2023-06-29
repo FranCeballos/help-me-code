@@ -1,3 +1,4 @@
+import { SessionProvider } from "next-auth/react";
 import { AnimatePresence } from "framer-motion";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@/styles/globals.css";
@@ -25,14 +26,19 @@ const darkTheme = createTheme({
   },
 });
 
-export default function App({ Component, pageProps }) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}) {
   return (
     <AnimatePresence mode="wait" initial={false}>
-      <ThemeProvider theme={darkTheme}>
-        <main>
-          <Component {...pageProps} />
-        </main>
-      </ThemeProvider>
+      <SessionProvider session={session}>
+        <ThemeProvider theme={darkTheme}>
+          <main>
+            <Component {...pageProps} />
+          </main>
+        </ThemeProvider>
+      </SessionProvider>
     </AnimatePresence>
   );
 }
