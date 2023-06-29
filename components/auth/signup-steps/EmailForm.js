@@ -4,25 +4,24 @@ import TitleForm from "./TitleForm";
 import AuthFormWrapper from "../../UI/AuthFormWrapper";
 import { validateEmail } from "@/lib/client-input-validation";
 import classes from "../AuthForm.module.css";
+import { validateEmailWithServer } from "@/lib/auth";
 
 const EmailForm = ({ onNext }) => {
   const initialErrorObj = { status: false, message: " " };
   const [emailError, setEmailError] = useState(initialErrorObj);
   const emailRef = useRef();
-  let emailHasValidationError = false;
 
-  const emailSubmitHandler = () => {
-    setEmailError(initialErrorObj);
-    const email = emailRef.current.value.trim();
-    const emailIsValid = validateEmail(email);
-    console.log(emailIsValid);
+  const emailSubmitHandler = async () => {
+    const email = emailRef.current.value.trim().toLowerCase();
 
-    if (!emailIsValid) {
-      emailHasValidationError = true;
-      setEmailError({ status: true, message: "Ingresar email" });
+    const response = await validateEmailWithServer(email);
+
+    const { emailIsValid, message } = response;
+    const emailHasError = !emailIsValid;
+    if (emailHasError) {
+      setEmailError({ status: emailHasError, message: message });
     }
-
-    onNext({ email }, emailHasValidationError);
+    onNext({ email }, emailHasError);
   };
 
   return (

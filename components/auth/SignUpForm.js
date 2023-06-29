@@ -45,21 +45,20 @@ const SignUpForm = () => {
     setFormView("password");
   };
 
-  const passwordSubmitHandler = async (data, hasError) => {
-    if (hasError) return;
-
+  const passwordSubmitHandler = async (data, hasPasswordError) => {
+    const { password } = data;
+    const { passwordError, passwordConfirmError } = hasPasswordError;
     setSignupInfo((prevInfo) => {
       return {
         ...prevInfo,
-        password: data.password,
+        password,
       };
     });
-    try {
-      const result = await createUser(signupInfo);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
+    console.log(hasPasswordError);
+    if (passwordError || passwordConfirmError) return;
+
+    const createUserResponse = await createUser(signupInfo);
+    console.log(createUserResponse);
   };
 
   let formViewComponent = <NameForm onNext={nameSubmitHandler} />;

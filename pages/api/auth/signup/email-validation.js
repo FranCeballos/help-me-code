@@ -8,21 +8,40 @@ const handler = async (req, res) => {
     const emailIsValid = validateEmail(email);
 
     if (!emailIsValid) {
-      return res.status(422).json({ message: "Formato de email no valido." });
+      return res
+        .status(422)
+        .json({ message: "Formato de email no valido.", emailIsValid });
     }
 
-    const client = await connectToDatabase();
+    let client;
+    try {
+      client = await connectToDatabase();
+    } catch (error) {
+      res.status(500).json({
+        message: "Fallo al conectar con la base de datos! Pruebe en un minuto",
+      });
+      return;
+    }
     const db = client.db();
 
-    const existingUser = await db.collection("users").findOne({ email: email });
+    let existingUser;
+    try {
+      existingUser = await db.collection("users").findOne({ email: email });
+    } catch (error) {
+      res.status(500).json({
+        message: "'Fallo al conectar con la base de datos!'",
+        emailIsValid,
+      });
+    }
 
     if (existingUser) {
       return res.status(422).json({
         message: "Ya hay una cuenta asociada a ese email. Usar uno distinto.",
+        emailIsValid,
       });
     }
 
-    return res.status(201).json({ message: "Email valido" });
+    res.status(201).json({ message: "Email valido", emailIsValid });
   }
 };
 

@@ -1,46 +1,32 @@
 import { TextField, Button } from "@mui/material";
 import TitleForm from "./TitleForm";
 import AuthFormWrapper from "../../UI/AuthFormWrapper";
-import {
-  validatePassword,
-  matchPasswords,
-} from "@/lib/client-input-validation";
 import classes from "../AuthForm.module.css";
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { validatePasswordWithServer } from "@/lib/auth";
+
+const initialPasswordErrorsObj = {
+  passwordError: false,
+  passwordConfirmError: false,
+  passwordConfirmMessage: " ",
+};
 
 const PasswordForm = ({ onNext }) => {
-  const initialValidationObj = { status: false, message: "" };
-  const [passwordError, setPasswordError] = useState(initialValidationObj);
-  const [passwordConfirmError, setPasswordConfirmError] =
-    useState(initialValidationObj);
+  const [passwordErrors, setPasswordErrors] = useState(
+    initialPasswordErrorsObj
+  );
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
-  let passwordHasError = false;
 
-  const passwordSubmitHandler = () => {
-    setPasswordError(false);
-    setPasswordConfirmError(false);
+  const passwordSubmitHandler = async () => {
     const password = passwordRef.current.value;
     const passwordConfirm = passwordConfirmRef.current.value;
-    const passwordIsValid = validatePassword(password);
-    const passwordsMatch = matchPasswords(password, passwordConfirm);
-    console.log("PasswordIsValid:", passwordIsValid);
-    console.log("PasswordsMatch:", passwordsMatch);
+    console.log(password, passwordConfirm);
 
-    if (!passwordIsValid) {
-      passwordHasError = true;
-      setPasswordError({ status: true, message: null });
-    }
-
-    if (!passwordsMatch) {
-      passwordHasError = true;
-      setPasswordConfirmError({
-        status: true,
-        message: "Las contraseñas no coinciden",
-      });
-    }
-
-    onNext({ password }, passwordHasError);
+    const result = await validatePasswordWithServer(password, passwordConfirm);
+    console.log(result);
+    setPasswordErrors(result);
+    onNext({ password }, result);
   };
 
   return (
@@ -54,7 +40,7 @@ const PasswordForm = ({ onNext }) => {
           variant="outlined"
           fullWidth
           margin="dense"
-          error={passwordError.status}
+          error={passwordErrors.passwordError}
           helperText={
             "Debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número."
           }
@@ -66,8 +52,8 @@ const PasswordForm = ({ onNext }) => {
           variant="outlined"
           fullWidth
           margin="dense"
-          error={passwordConfirmError.status}
-          helperText={passwordConfirmError.message}
+          error={passwordErrors.passwordConfirmError}
+          helperText={passwordErrors.passwordConfirmMessage}
         />
       </div>
       <div className={classes["auth__buttons-box-end"]}>
