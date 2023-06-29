@@ -83,7 +83,6 @@ const SignUpForm = () => {
       formViewComponent = <SuccessForm />;
       progressBarLevel = progressBar100;
       break;
-
     case "default":
       formViewComponent = <NameForm onNext={changeFormView} />;
       progressBarLevel = progressBar20;

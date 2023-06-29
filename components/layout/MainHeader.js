@@ -16,7 +16,6 @@ import { useSession, signOut } from "next-auth/react";
 
 const MainHeader = () => {
   const { data: session, status } = useSession();
-  console.log(session, status);
 
   const [isSearching, setIsSearching] = useState(false);
   const searchInputRef = useRef();

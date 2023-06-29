@@ -25,7 +25,6 @@ const LogInForm = () => {
     if (!result.error) {
       router.push("/");
     }
-    console.log(result);
   };
   return (
     <div className={classes["auth__box"]}>

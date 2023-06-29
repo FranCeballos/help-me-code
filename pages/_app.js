@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { SessionProvider } from "next-auth/react";
 import { AnimatePresence } from "framer-motion";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -36,6 +37,7 @@ export default function App({
         <ThemeProvider theme={darkTheme}>
           <main>
             <Component {...pageProps} />
+            <Analytics />
           </main>
         </ThemeProvider>
       </SessionProvider>

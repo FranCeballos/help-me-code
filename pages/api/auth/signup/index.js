@@ -18,7 +18,18 @@ export default async function handler(req, res) {
     }
 
     const db = client.db();
-    const hashedPassword = await hashPassword(password);
+
+    let hashedPassword;
+    try {
+      hashedPassword = await hashPassword(password);
+    } catch (error) {
+      client.close();
+      res.status(500).json({
+        message: error.message,
+        serverError: true,
+      });
+      return;
+    }
 
     try {
       const result = await db.collection("users").insertOne({
@@ -34,7 +45,8 @@ export default async function handler(req, res) {
       });
     } catch (error) {
       res.status(500).json({
-        message: "Fallo al conectar con la base de datos ! Pruebe en un minuto",
+        message:
+          "Fallo al crear usuario en la base de datos! Pruebe en un minuto",
         serverError: true,
       });
       client.close();

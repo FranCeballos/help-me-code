@@ -30,9 +30,8 @@ export default NextAuth({
           throw new Error("Email y/o contraseña no son correctas");
         }
 
-        return { email: user.email };
-
         client.close();
+        return { email: user.email };
       },
     }),
   ],

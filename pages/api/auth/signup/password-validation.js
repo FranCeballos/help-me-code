@@ -7,9 +7,6 @@ const handler = async (req, res) => {
   const { password, passwordConfirm } = req.body;
   const passwordIsValid = validatePassword(password);
   const passwordsMatch = matchPasswords(password, passwordConfirm);
-  console.log(password, passwordConfirm);
-  console.log(passwordIsValid);
-  console.log(passwordsMatch);
   if (!passwordIsValid || !passwordsMatch) {
     return res.status(422).json({
       passwordError: !passwordIsValid,
