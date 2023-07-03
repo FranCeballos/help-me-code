@@ -1,5 +1,6 @@
 .container {
-  min-height: 80vw;
+  min-height: fit-content;
+  margin-bottom: 5rem;
 }
 .slider__container {
   display: flex;

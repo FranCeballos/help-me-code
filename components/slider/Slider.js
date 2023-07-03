@@ -1,79 +1,49 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import SliderItem from "./SliderItem";
 import classes from "./Slider.module.css";
+import { useState } from "react";
 
-const serieObjectLayout = {
-  _id: "Asdasdadasd",
-  name: "Pista de Crecimiento",
-  description: "Una serie sobre las clases Conectar, Crecer, Equipar y Servir",
-  category: "acerca",
-  imageUrl: "/series/pista-de-crecimiento/main.jpeg",
-  numOfEpisodes: 4,
-  episodes: [
-    {
-      _id: "asdasdsad",
-      name: "Conecto",
-      description: "Conoce todo acerca de C3",
-      imageUrl: "/series/pista-de-crecimiento/conectar.jpeg",
-      videoUrl: "https://www.vimeo.com/c3plus/pista-de-crecimiento/conectar",
-    },
-    {
-      _id: "asdasdsad",
-      name: "Conecto",
-      description: "Conoce todo acerca de C3",
-      imageUrl: "/series/pista-de-crecimiento/conectar.jpeg",
-      videoUrl: "https://www.vimeo.com/c3plus/pista-de-crecimiento/conectar",
-    },
-  ],
-};
+const Slider = (props) => {
+  const seriesLength = props.seriesData.length;
+  console.log(seriesLength);
+  const sliderMaxPositionValue = Math.floor((seriesLength - 1) / 4) * -100;
+  console.log(sliderMaxPositionValue);
 
-const Slider = () => {
-  const series = [
-    { _id: "1", imageUrl: "https://fakeimg.pl/210/7dff93/909090?text=1" },
-    { _id: "2", imageUrl: "https://fakeimg.pl/220/7dff93/909090?text=2" },
-    { _id: "3", imageUrl: "https://fakeimg.pl/230/7dff93/909090?text=3" },
-    { _id: "4", imageUrl: "https://fakeimg.pl/240/7dff93/909090?text=4" },
-    { _id: "5", imageUrl: "https://fakeimg.pl/250/7dff93/909090?text=5" },
-    { _id: "6", imageUrl: "https://fakeimg.pl/260/7dff93/909090?text=6" },
-    { _id: "7", imageUrl: "https://fakeimg.pl/270/7dff93/909090?text=7" },
-    { _id: "8", imageUrl: "https://fakeimg.pl/280/7dff93/909090?text=8" },
-    { _id: "9", imageUrl: "https://fakeimg.pl/290/7dff93/909090?text=9" },
-  ];
-
-  const [sliderPosition, setSliderPosition] = useState(0);
-
-  let sliderPositionString = `0%`;
-  const isPositionLimit = sliderPosition === Math.ceil(series.length / 4);
-
-  if (!isPositionLimit) {
-    sliderPositionString = `-${sliderPosition * 100}%`;
-  } else {
-    sliderPositionString = `-0%`;
-    setSliderPosition(0);
-  }
+  const sliderPosition = useMotionValue(0);
+  const [xPosition, setXPosition] = useState(sliderPosition.get());
 
   const handlePrev = () => {
-    setSliderPosition((prev) => prev - 1);
+    if (sliderPosition.get() < 0) {
+      sliderPosition.set(sliderPosition.get() + 100);
+      setXPosition(sliderPosition.get());
+    }
   };
 
   const handleNext = () => {
-    setSliderPosition((prev) => prev + 1);
+    if (sliderPosition.get() > sliderMaxPositionValue) {
+      sliderPosition.set(sliderPosition.get() - 100);
+      setXPosition(sliderPosition.get());
+    } else {
+      sliderPosition.set(0);
+      setXPosition(sliderPosition.get());
+    }
   };
-
+  console.log(sliderPosition.get());
   return (
     <div className={classes["container"]}>
-      <h3 className={classes["row__title"]}>Title</h3>
+      <h3 className={classes["row__title"]}>{props.title}</h3>
       <div className={classes["slider__container"]}>
-        {sliderPosition > 0 ? (
-          <div
+        {sliderPosition.get() !== 0 ? (
+          <motion.div
             className={`${classes["handle"]} ${classes["handlePrev"]}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             onClick={handlePrev}
           >
             <ArrowBackIosNewIcon style={{ color: "white", fontSize: "2vw" }} />
-          </div>
+          </motion.div>
         ) : (
           <motion.div
             className={`${classes["handle"]} ${classes["disabled"]}`}
@@ -85,11 +55,11 @@ const Slider = () => {
         )}
         <motion.div
           className={classes["slider"]}
-          animate={{ x: sliderPositionString }}
+          animate={{ translateX: `${xPosition}%` }}
           transition={{ type: "tween", ease: "easeInOut", duration: 0.7 }}
         >
-          {series.map((serie) => (
-            <SliderItem key={serie._id} data={serie} />
+          {props.seriesData.map((serie) => (
+            <SliderItem key={serie._id} seriesData={serie} />
           ))}
         </motion.div>
         <div

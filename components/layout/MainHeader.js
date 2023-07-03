@@ -9,6 +9,7 @@ import {
   useFormControl,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
 import classes from "./MainHeader.module.css";
@@ -95,7 +96,7 @@ const MainHeader = () => {
                 size="large"
                 style={{ fontSize: 25, padding: 10, marginLeft: 20 }}
               >
-                <LoginIcon fontSize="inherit" />
+                <AccountCircleIcon fontSize="inherit" />
               </IconButton>
             </Link>
           )}
