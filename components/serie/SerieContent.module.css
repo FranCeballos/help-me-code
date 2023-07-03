@@ -1,0 +1,41 @@
+.serie__content-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 4vw;
+}
+.serie__description-box {
+  height: 100%;
+  width: 100%;
+  margin-bottom: 9rem;
+}
+.serie__description {
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.serie__episodes-box {
+  margin-top: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.serie__list-title-box {
+  width: 100%;
+  height: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.serie__list-title {
+  font-size: 2.8rem;
+  color: #fff;
+  margin-bottom: 2rem;
+}

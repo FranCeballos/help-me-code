@@ -1,0 +1,94 @@
+.episode__box {
+  width: 100%;
+  height: 17rem;
+  border-bottom: 1px solid rgb(87, 87, 87);
+  border-radius: 0.4rem;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 0.5fr 3fr 5fr;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.episode__num-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.episode__num {
+  color: #fff;
+  font-weight: 300;
+  font-size: 2.5rem;
+}
+
+.episode__img-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.episode__img {
+  width: 70%;
+  height: 70%;
+  object-fit: cover;
+}
+
+.episode__data-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 2rem 1rem 0 0;
+  gap: 1rem;
+}
+
+.episode__data-box-1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.episode__title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.episode__duration {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #fff;
+}
+
+.episode__description-box {
+  width: 100%;
+  height: 100%;
+}
+
+.episode__description {
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #fff;
+}
+
+.play__icon {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}

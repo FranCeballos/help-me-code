@@ -1,0 +1,66 @@
+.serie__container {
+  padding: 0 2vw 3rem 2vw;
+}
+
+.serie__card {
+  min-height: 100vh;
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #141414;
+  margin-top: 6.8rem;
+  padding: 0 0 3rem 0;
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+.serie__title {
+  color: #fff;
+  font-size: 4vw;
+  margin-bottom: 1.5rem;
+}
+
+.serie__image-box {
+  width: 100%;
+  height: 10%;
+  position: relative;
+}
+
+.serie__image-box::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: -webkit-linear-gradient(0deg, #141414, transparent 35%);
+  background: linear-gradient(0deg, #141414, transparent 35%);
+}
+
+.serie__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.serie__image-buttons {
+  position: absolute;
+  bottom: 7.5rem;
+  left: 5rem;
+}
+
+@media screen and (max-width: 425px) {
+  .serie__card {
+    width: 100%;
+  }
+  .serie__title {
+    font-size: 7vw;
+  }
+  .serie__image-buttons {
+    bottom: 3rem;
+    left: 3rem;
+  }
+}
