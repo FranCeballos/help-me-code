@@ -1,7 +1,7 @@
+import Link from "next/link";
 import { motion } from "framer-motion";
 import PlayCircleOutlinedIcon from "@mui/icons-material/PlayCircleOutlined";
 import classes from "./EpisodeListItem.module.css";
-import { useState } from "react";
 
 const playIconVariant = {
   rest: {
@@ -23,52 +23,58 @@ const imageVariant = {
 
 const EpisodeListItem = (props) => {
   const episodeData = props.episodeData;
+  const serieId = props.serieId;
   console.log(episodeData);
 
   return (
-    <motion.div
-      className={classes["episode__box"]}
-      initial="rest"
-      whileHover="hover"
-      animate="rest"
+    <Link
+      href={`/series/${serieId}/${episodeData.episodeNum}`}
+      className={classes["link__container"]}
     >
-      <div className={classes["episode__num-box"]}>
-        <p className={classes["episode__num"]}>{episodeData.episodeNum}</p>
-      </div>
-      <div className={classes["episode__img-box"]}>
-        <motion.div
-          className={classes["play__icon"]}
-          variants={playIconVariant}
-        >
-          <PlayCircleOutlinedIcon
-            style={{
-              position: "absolute",
-              color: "#fff",
-              fontSize: 50,
-            }}
+      <motion.div
+        className={classes["episode__box"]}
+        initial="rest"
+        whileHover="hover"
+        animate="rest"
+      >
+        <div className={classes["episode__num-box"]}>
+          <p className={classes["episode__num"]}>{episodeData.episodeNum}</p>
+        </div>
+        <div className={classes["episode__img-box"]}>
+          <motion.div
+            className={classes["play__icon"]}
+            variants={playIconVariant}
+          >
+            <PlayCircleOutlinedIcon
+              style={{
+                position: "absolute",
+                color: "#fff",
+                fontSize: 50,
+              }}
+            />
+          </motion.div>
+          <motion.img
+            variants={imageVariant}
+            src={episodeData.imageUrl}
+            className={classes["episode__img"]}
+            alt={episodeData.name}
           />
-        </motion.div>
-        <motion.img
-          variants={imageVariant}
-          src={episodeData.imageUrl}
-          className={classes["episode__img"]}
-          alt={episodeData.name}
-        />
-      </div>
-      <div className={classes["episode__data-container"]}>
-        <div className={classes["episode__data-box-1"]}>
-          <h5 className={classes["episode__title"]}>{episodeData.name}</h5>
-          <p className={classes["episode__duration"]}>
-            {episodeData.videoDuration}
-          </p>
         </div>
-        <div className={classes["episode__description-box"]}>
-          <h6 className={classes["episode__description"]}>
-            {episodeData.description}
-          </h6>
+        <div className={classes["episode__data-container"]}>
+          <div className={classes["episode__data-box-1"]}>
+            <h5 className={classes["episode__title"]}>{episodeData.name}</h5>
+            <p className={classes["episode__duration"]}>
+              {episodeData.videoDuration}
+            </p>
+          </div>
+          <div className={classes["episode__description-box"]}>
+            <h6 className={classes["episode__description"]}>
+              {episodeData.description}
+            </h6>
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </Link>
   );
 };
 

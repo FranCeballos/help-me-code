@@ -25,6 +25,7 @@ function HeadComponent(props) {
           href="/favicons/favicon-16x16.png"
         />
         <link rel="manifest" href="/favicons/site.webmanifest" />
+        <script defer src="https://player.vimeo.com/api/player.js"></script>
       </Head>
     </>
   );

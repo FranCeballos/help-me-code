@@ -7,9 +7,7 @@ import { useState } from "react";
 
 const Slider = (props) => {
   const seriesLength = props.seriesData.length;
-  console.log(seriesLength);
   const sliderMaxPositionValue = Math.floor((seriesLength - 1) / 4) * -100;
-  console.log(sliderMaxPositionValue);
 
   const sliderPosition = useMotionValue(0);
   const [xPosition, setXPosition] = useState(sliderPosition.get());
@@ -30,7 +28,6 @@ const Slider = (props) => {
       setXPosition(sliderPosition.get());
     }
   };
-  console.log(sliderPosition.get());
   return (
     <div className={classes["container"]}>
       <h3 className={classes["row__title"]}>{props.title}</h3>

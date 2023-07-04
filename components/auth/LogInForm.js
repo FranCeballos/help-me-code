@@ -39,7 +39,7 @@ const LogInForm = () => {
               alt="C3 Logo"
             />
           </div>
-          <h1 className={classes["auth__title"]}>Ingresa</h1>
+          <h1 className={classes["auth__title"]}>Ingresar</h1>
         </div>
         <div>
           <TextField

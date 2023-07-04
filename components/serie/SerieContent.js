@@ -1,5 +1,6 @@
 import classes from "./SerieContent.module.css";
 import EpisodeListItem from "./EpisodeListItem";
+import EpisodeList from "./EpisodeList";
 
 const SerieContent = (props) => {
   const serieData = props.serieData;
@@ -15,11 +16,16 @@ const SerieContent = (props) => {
       <div className={classes["serie__list-title-box"]}>
         <h4 className={classes["serie__list-title"]}>Episodios</h4>
       </div>
-      <div className={classes["serie__episodes-box"]}>
+      {/* <div className={classes["serie__episodes-box"]}>
         {episodesData.map((episode) => (
-          <EpisodeListItem key={episode._id} episodeData={episode} />
+          <EpisodeListItem
+            key={episode._id}
+            episodeData={episode}
+            serieId={serieData._id}
+          />
         ))}
-      </div>
+      </div> */}
+      <EpisodeList episodesData={episodesData} serieId={serieData._id} />
     </div>
   );
 };

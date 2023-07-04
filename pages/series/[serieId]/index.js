@@ -1,13 +1,12 @@
-import Serie from "../../components/serie/Serie";
+import Serie from "../../../components/serie/Serie";
 import HeadComponent from "@/components/head/Head";
 import NavBarLayout from "@/components/layout/NavBarLayout";
 import { getAllSeries, getSerieById } from "@/lib/series";
-import classes from "../../components/serie/Serie.module.css";
+import classes from "../../../components/serie/Serie.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 
 const SeriePage = (props) => {
   const serieData = props.serieData;
-  console.log(serieData);
   return (
     <>
       <HeadComponent
