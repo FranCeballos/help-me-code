@@ -3,6 +3,22 @@ import { motion } from "framer-motion";
 import PlayCircleOutlinedIcon from "@mui/icons-material/PlayCircleOutlined";
 import classes from "./EpisodeListItem.module.css";
 
+const selectedVariant = {
+  rest: {
+    background: "rgb(255,255,255, 0.12)",
+  },
+};
+const unselectedVariantGrey = {
+  rest: {
+    background: "#141414",
+  },
+};
+const unselectedVariantBlack = {
+  rest: {
+    background: "black",
+  },
+};
+
 const playIconVariant = {
   rest: {
     opacity: 0,
@@ -21,10 +37,19 @@ const imageVariant = {
   },
 };
 
-const EpisodeListItem = (props) => {
-  const episodeData = props.episodeData;
-  const serieId = props.serieId;
-  console.log(episodeData);
+const EpisodeListItem = ({
+  episodeData,
+  serieId,
+  selectedEpisode,
+  fullBlack,
+}) => {
+  let thisEpisodeIsSelected = false;
+  if (selectedEpisode === episodeData.episodeNum) {
+    thisEpisodeIsSelected = true;
+  }
+  const unselectedVariant = fullBlack
+    ? unselectedVariantBlack
+    : unselectedVariantGrey;
 
   return (
     <Link
@@ -36,6 +61,7 @@ const EpisodeListItem = (props) => {
         initial="rest"
         whileHover="hover"
         animate="rest"
+        variants={thisEpisodeIsSelected ? selectedVariant : unselectedVariant}
       >
         <div className={classes["episode__num-box"]}>
           <p className={classes["episode__num"]}>{episodeData.episodeNum}</p>

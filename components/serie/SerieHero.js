@@ -2,6 +2,7 @@ import { IconButton, Button, Fab } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import classes from "./Serie.module.css";
+import Link from "next/link";
 
 const SerieHero = (props) => {
   const serieData = props.serieData;
@@ -10,17 +11,19 @@ const SerieHero = (props) => {
       <div className={classes["serie__image-buttons"]}>
         <h1 className={classes["serie__title"]}>{serieData.name}</h1>
         <div>
-          <Fab
-            style={{
-              fontSize: 14,
-              fontWeight: 700,
-              backgroundColor: "white",
-            }}
-            variant="extended"
-          >
-            <PlayArrowIcon style={{ fontSize: 23, marginRight: 6 }} />
-            Reproducir
-          </Fab>
+          <Link href={`/series/${serieData._id}/1`}>
+            <Fab
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                backgroundColor: "white",
+              }}
+              variant="extended"
+            >
+              <PlayArrowIcon style={{ fontSize: 23, marginRight: 6 }} />
+              Reproducir
+            </Fab>
+          </Link>
           <IconButton
             aria-label="add-favorites"
             size="large"

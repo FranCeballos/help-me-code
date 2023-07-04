@@ -12,8 +12,8 @@ const EpisodeContainer = (props) => {
   return (
     <motion.div
       className={classes["episode__container"]}
-      initial={{ x: "100%" }}
-      animate={{ x: 0 }}
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
       exit={{ x: "-100%" }}
       transition={{ duration: 1, type: "spring" }}
     >
@@ -29,7 +29,12 @@ const EpisodeContainer = (props) => {
         serieData={serieData}
         episodeNum={episodeData.episodeNum}
       />
-      <EpisodeList episodesData={serieData.episodes} serieId={serieData._id} />
+      <EpisodeList
+        episodesData={serieData.episodes}
+        serieId={serieData._id}
+        selectedEpisode={episodeData.episodeNum}
+        fullBlack={true}
+      />
     </motion.div>
   );
 };

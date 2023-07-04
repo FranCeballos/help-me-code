@@ -16,7 +16,10 @@ const EpisodeNavigation = ({ serieData, episodeNum }) => {
   return (
     <div className={classes["navigation__container"]}>
       {!isFirstEpisode ? (
-        <Link href={`/series/${serieData._id}/${prevEpisode}`}>
+        <Link
+          href={`/series/${serieData._id}/${prevEpisode}`}
+          className="link__style-off"
+        >
           <Fab
             style={{
               fontSize: 14,
@@ -35,7 +38,10 @@ const EpisodeNavigation = ({ serieData, episodeNum }) => {
         <div></div>
       )}
       {!isLastEpisode ? (
-        <Link href={`/series/${serieData._id}/${nextEpisode}`}>
+        <Link
+          href={`/series/${serieData._id}/${nextEpisode}`}
+          className="link__style-off"
+        >
           <Fab
             style={{
               fontSize: 14,
