@@ -3,7 +3,6 @@ import classes from "./RowsContainer.module.css";
 
 const RowsContainer = (props) => {
   const allSeries = props.seriesData;
-  console.log("RowsContainer", allSeries);
   const categories = {
     acerca: {
       title: "Acerca",

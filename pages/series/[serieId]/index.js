@@ -34,7 +34,6 @@ export const getStaticPaths = async () => {
   const seriesData = await getAllSeries();
   const seriesIds = seriesData.map((serie) => String(serie._id));
   const pathsWithParams = seriesIds.map((serieId) => ({ params: { serieId } }));
-  console.log(pathsWithParams);
 
   return {
     paths: pathsWithParams,
@@ -44,13 +43,9 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const serieId = context.params.serieId;
-  console.log(serieId);
-
   const serie = await getSerieById(serieId);
 
-  console.log(serie);
-
-  if (!serie) {
+  if (!serie._id) {
     return {
       notFound: true,
     };

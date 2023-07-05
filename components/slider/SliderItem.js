@@ -3,7 +3,6 @@ import classes from "./SliderItem.module.css";
 import { motion } from "framer-motion";
 
 const RowItem = ({ seriesData }) => {
-  console.log(seriesData);
   return (
     <Link
       className={classes["item__image-link"]}

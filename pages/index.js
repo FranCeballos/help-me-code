@@ -7,7 +7,6 @@ import { getAllSeries } from "@/lib/series";
 
 const HomePage = (props) => {
   const posterSrc = "./home/solid-black.jpeg";
-  console.log("HomePage", props.allSeries);
   return (
     <>
       <HeadComponent
@@ -44,7 +43,6 @@ export const getStaticProps = async () => {
       revalidate: 600,
     };
   } catch (error) {
-    console.log(error);
     return {
       props: {
         allSeries: ["Something went wrong"],

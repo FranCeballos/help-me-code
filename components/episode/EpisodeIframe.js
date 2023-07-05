@@ -1,3 +1,4 @@
+import Script from "next/script";
 import classes from "./EpisodeIframe.module.css";
 
 const EpisodeIframe = ({ episodeName, videoUrl }) => {
@@ -6,14 +7,17 @@ const EpisodeIframe = ({ episodeName, videoUrl }) => {
       <div className={classes["iframe__container"]}>
         <iframe
           src={videoUrl}
-          frameborder="0"
+          frameBorder="0"
           allow="autoplay; fullscreen; picture-in-picture"
-          allowfullscreen
+          allowFullScreen
           className={classes["iframe"]}
           title={episodeName}
         ></iframe>
       </div>
-      <script src="https://player.vimeo.com/api/player.js"></script>
+      <Script
+        strategy="lazyOnLoad"
+        src="https://player.vimeo.com/api/player.js"
+      />
     </>
   );
 };

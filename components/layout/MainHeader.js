@@ -34,7 +34,7 @@ const MainHeader = () => {
   };
 
   const logoutHandler = () => {
-    signOut({ redirect: false });
+    signOut({ callbackUrl: "/" });
   };
 
   return (
@@ -54,6 +54,13 @@ const MainHeader = () => {
                 Inicio
               </Link>
             </li>
+            {session && (
+              <li>
+                <Link className={classes["nav__link"]} href="/mi-lista">
+                  Mi Lista
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
         <div>

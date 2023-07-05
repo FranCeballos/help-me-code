@@ -23,6 +23,14 @@
   margin-bottom: 1.5rem;
 }
 
+.serie__buttons-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2.25rem;
+}
+
 .serie__image-box {
   width: 100%;
   height: 10%;

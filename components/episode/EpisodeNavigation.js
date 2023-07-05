@@ -7,11 +7,8 @@ import classes from "./EpisodeNavigation.module.css";
 const EpisodeNavigation = ({ serieData, episodeNum }) => {
   const isFirstEpisode = episodeNum === 1;
   const isLastEpisode = episodeNum === serieData.numOfEpisodes;
-  console.log(episodeNum);
   const prevEpisode = episodeNum - 1;
   const nextEpisode = episodeNum + 1;
-  console.log(prevEpisode);
-  console.log(nextEpisode);
 
   return (
     <div className={classes["navigation__container"]}>

@@ -12,8 +12,6 @@ const EpisodePage = (props) => {
   const episodeData = serieData.episodes.find(
     (episode) => episode.episodeNum === parsedEpisodeNum
   );
-  console.log(serieData);
-  console.log(episodeData);
   return (
     <>
       <HeadComponent
@@ -29,9 +27,7 @@ const EpisodePage = (props) => {
 
 export const getServerSideProps = async (context) => {
   const { serieId, episodeNum } = context.params;
-  console.log(serieId, parseFloat(episodeNum[0]));
   const serieData = await getSerieById(serieId);
-  console.log(serieData);
 
   if (!serieData) {
     return {

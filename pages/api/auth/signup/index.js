@@ -6,6 +6,14 @@ export default async function handler(req, res) {
     const { firstName, lastName, birthDate, gender, email, password } =
       req.body;
 
+    if (!password) {
+      res.status(422).json({
+        message: "Fallo al validar contraseña",
+        serverError: true,
+      });
+      return;
+    }
+
     let client;
     try {
       client = await connectToDatabase();
