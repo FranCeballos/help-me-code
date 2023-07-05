@@ -33,6 +33,7 @@ const handler = async (req, res) => {
         emailIsValid,
       });
       client.close();
+      return;
     }
 
     if (existingUser) {

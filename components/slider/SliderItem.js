@@ -12,7 +12,8 @@ const RowItem = ({ seriesData }) => {
         className={classes["item__image"]}
         src={seriesData.imageUrl}
         alt="Random image"
-        whileHover={{ scale: 1.03 }}
+        whileHover={{ scale: 1.02 }}
+        transition={{ duration: 0.3 }}
       />
     </Link>
   );
