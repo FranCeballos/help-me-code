@@ -10,6 +10,7 @@ import Link from "next/link";
 
 const SerieHero = (props) => {
   const { data: session, status } = useSession();
+  console.log(session);
   const serieData = props.serieData;
   const [favsData, setFavsData] = useState([]);
   const [favIsLoading, setFavIsLoading] = useState(true);
@@ -81,8 +82,34 @@ const SerieHero = (props) => {
 
   const open = Boolean(anchorEl);
 
+  const popover = (
+    <Popover
+      id="mouse-over-popover"
+      sx={{
+        pointerEvents: "none",
+      }}
+      open={open}
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "left",
+      }}
+      onClose={handlePopoverClose}
+      disableRestoreFocus
+    >
+      <Typography sx={{ p: 1 }}>
+        {serieIsInFavs ? "Quitar de Mi Lista" : "Agregar a Mi Lista"}
+      </Typography>
+    </Popover>
+  );
+
   const favState =
-    session && favIsLoading ? (
+    session &&
+    (favIsLoading ? (
       <CircularProgress size={50} style={{ color: "#fff", padding: 10 }} />
     ) : serieIsInFavs ? (
       <>
@@ -100,28 +127,7 @@ const SerieHero = (props) => {
         >
           <CheckCircleIcon style={{ width: "40px", height: "40px" }} />
         </IconButton>
-        <Popover
-          id="mouse-over-popover"
-          sx={{
-            pointerEvents: "none",
-          }}
-          open={open}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-          onClose={handlePopoverClose}
-          disableRestoreFocus
-        >
-          <Typography sx={{ p: 1 }}>
-            {serieIsInFavs ? "Quitar de Mi Lista" : "Agregar a Mi Lista"}
-          </Typography>
-        </Popover>
+        {popover}
       </>
     ) : (
       <>
@@ -139,30 +145,9 @@ const SerieHero = (props) => {
         >
           <AddCircleIcon style={{ width: "40px", height: "40px" }} />
         </IconButton>
-        <Popover
-          id="mouse-over-popover"
-          sx={{
-            pointerEvents: "none",
-          }}
-          open={open}
-          anchorEl={anchorEl}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-          onClose={handlePopoverClose}
-          disableRestoreFocus
-        >
-          <Typography sx={{ p: 1 }}>
-            {serieIsInFavs ? "Quitar de Mi Lista" : "Agregar a Mi Lista"}
-          </Typography>
-        </Popover>
+        {popover}
       </>
-    );
+    ));
 
   return (
     <div className={classes["serie__image-box"]}>
