@@ -1,18 +1,25 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import AuthFormWrapper from "../UI/AuthFormWrapper";
 import classes from "./AuthForm.module.css";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/router";
 
+const initialLoginErrorObj = {
+  message: " ",
+  error: false,
+};
 const LogInForm = () => {
   const router = useRouter();
   const emailRef = useRef();
   const passwordRef = useRef();
-
+  const [loginError, setLoginError] = useState(initialLoginErrorObj);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
+  console.log(loginError);
   const submitHandler = async () => {
+    setLoadingSubmit(true);
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
@@ -21,10 +28,15 @@ const LogInForm = () => {
       email,
       password,
     });
+    console.log(result);
 
-    if (!result.error) {
-      router.push("/");
+    if (!result.ok) {
+      setLoginError({ message: result.error, error: true });
+      setLoadingSubmit(false);
+      return;
     }
+
+    router.replace("/");
   };
   return (
     <div className={classes["auth__box"]}>
@@ -43,6 +55,7 @@ const LogInForm = () => {
         </div>
         <div>
           <TextField
+            error={loginError.error}
             inputRef={emailRef}
             id="email"
             label="Email"
@@ -51,6 +64,7 @@ const LogInForm = () => {
             margin="dense"
           />
           <TextField
+            error={loginError.error}
             inputRef={passwordRef}
             id="password"
             label="Contraseña"
@@ -58,15 +72,22 @@ const LogInForm = () => {
             fullWidth
             margin="dense"
             type="password"
+            helperText={loginError.message}
           />
         </div>
         <div className={classes["auth__buttons-box-between"]}>
           <Link href="/registrarse" className={classes["register__button"]}>
             <Button variant="text">Crear cuenta</Button>
           </Link>
-          <Button onClick={submitHandler} variant="contained">
-            Ingresar
-          </Button>
+          {loadingSubmit ? (
+            <CircularProgress
+              style={{ width: 34.75, height: 34.75, marginRight: 30 }}
+            />
+          ) : (
+            <Button onClick={submitHandler} variant="contained">
+              Ingresar
+            </Button>
+          )}
         </div>
         <Link className={classes["auth__home-button"]} href="/">
           <Button variant="outlined">INICIO</Button>

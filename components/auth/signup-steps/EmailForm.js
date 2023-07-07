@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import TitleForm from "./TitleForm";
 import AuthFormWrapper from "../../UI/AuthFormWrapper";
 import { validateEmail } from "@/lib/client-input-validation";
@@ -9,9 +9,11 @@ import { validateEmailWithServer } from "@/lib/auth";
 const EmailForm = ({ onNext }) => {
   const initialErrorObj = { status: false, message: " " };
   const [emailError, setEmailError] = useState(initialErrorObj);
+  const [loading, setLoading] = useState(false);
   const emailRef = useRef();
 
   const emailSubmitHandler = async () => {
+    setLoading(true);
     const email = emailRef.current.value.trim().toLowerCase();
 
     const response = await validateEmailWithServer(email);
@@ -19,6 +21,7 @@ const EmailForm = ({ onNext }) => {
     const { emailIsValid, message } = response;
     const emailHasError = !emailIsValid;
     if (emailHasError) {
+      setLoading(false);
       setEmailError({ status: emailHasError, message: message });
     }
     onNext({ email }, emailHasError);
@@ -40,9 +43,15 @@ const EmailForm = ({ onNext }) => {
         />
       </div>
       <div className={classes["auth__buttons-box-end"]}>
-        <Button onClick={emailSubmitHandler} variant="contained">
-          Siguiente
-        </Button>
+        {loading ? (
+          <CircularProgress
+            style={{ width: 34.75, height: 34.75, marginRight: 30 }}
+          />
+        ) : (
+          <Button onClick={emailSubmitHandler} variant="contained">
+            Siguiente
+          </Button>
+        )}
       </div>
     </AuthFormWrapper>
   );

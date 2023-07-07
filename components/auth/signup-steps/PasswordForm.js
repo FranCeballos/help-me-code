@@ -1,4 +1,4 @@
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, CircularProgress } from "@mui/material";
 import TitleForm from "./TitleForm";
 import AuthFormWrapper from "../../UI/AuthFormWrapper";
 import classes from "../AuthForm.module.css";
@@ -15,15 +15,20 @@ const PasswordForm = ({ onNext }) => {
   const [passwordErrors, setPasswordErrors] = useState(
     initialPasswordErrorsObj
   );
+  const [loading, setLoading] = useState(false);
   const passwordRef = useRef();
   const passwordConfirmRef = useRef();
 
   const passwordSubmitHandler = async () => {
+    setLoading(true);
     const password = passwordRef.current.value;
     const passwordConfirm = passwordConfirmRef.current.value;
 
     const result = await validatePasswordWithServer(password, passwordConfirm);
-    setPasswordErrors(result);
+    if (result.passwordError || result.passwordConfirmError) {
+      setLoading(false);
+      setPasswordErrors(result);
+    }
     onNext({ password }, result);
   };
 
@@ -37,6 +42,7 @@ const PasswordForm = ({ onNext }) => {
           label="Nueva contraseña"
           variant="outlined"
           fullWidth
+          type="password"
           margin="dense"
           error={passwordErrors.passwordError}
           helperText={
@@ -48,6 +54,7 @@ const PasswordForm = ({ onNext }) => {
           id="passwordConfirm"
           label="Confirmar contraseña"
           variant="outlined"
+          type="password"
           fullWidth
           margin="dense"
           error={passwordErrors.passwordConfirmError}
@@ -55,9 +62,15 @@ const PasswordForm = ({ onNext }) => {
         />
       </div>
       <div className={classes["auth__buttons-box-end"]}>
-        <Button onClick={passwordSubmitHandler} variant="contained">
-          Siguiente
-        </Button>
+        {loading ? (
+          <CircularProgress
+            style={{ width: 34.75, height: 34.75, marginRight: 30 }}
+          />
+        ) : (
+          <Button onClick={passwordSubmitHandler} variant="contained">
+            Siguiente
+          </Button>
+        )}
       </div>
     </AuthFormWrapper>
   );

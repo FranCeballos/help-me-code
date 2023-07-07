@@ -7,18 +7,18 @@ import {
   OutlinedInput,
   InputAdornment,
   useFormControl,
+  CircularProgress,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import LoginIcon from "@mui/icons-material/Login";
 import LogoutIcon from "@mui/icons-material/Logout";
-import classes from "./MainHeader.module.css";
 import { useSession, signOut } from "next-auth/react";
+import classes from "./MainHeader.module.css";
 
 const MainHeader = () => {
   const { data: session, status } = useSession();
-
   const [isSearching, setIsSearching] = useState(false);
+  const [loadingAuth, setLoadingAuth] = useState(false);
   const searchInputRef = useRef();
 
   useEffect(() => {
@@ -33,8 +33,15 @@ const MainHeader = () => {
     setIsSearching(false);
   };
 
-  const logoutHandler = () => {
-    signOut({ callbackUrl: "/" });
+  const logoutHandler = async () => {
+    setLoadingAuth(true);
+    const result = signOut({ redirect: false });
+
+    if (!result.ok) {
+      return;
+    }
+    setLoadingAuth(false);
+    router.replace("/");
   };
 
   return (
@@ -107,16 +114,26 @@ const MainHeader = () => {
               </IconButton>
             </Link>
           )}
-          {session && (
-            <IconButton
-              onClick={logoutHandler}
-              aria-label="login"
-              size="large"
-              style={{ fontSize: 25, padding: 10, marginLeft: 20 }}
-            >
-              <LogoutIcon fontSize="inherit" />
-            </IconButton>
-          )}
+          {session &&
+            (loadingAuth ? (
+              <CircularProgress
+                style={{
+                  color: "#fff",
+                  width: 30,
+                  height: 30,
+                  marginRight: 10,
+                }}
+              />
+            ) : (
+              <IconButton
+                onClick={logoutHandler}
+                aria-label="logout"
+                size="large"
+                style={{ fontSize: 25, padding: 10, marginLeft: 20 }}
+              >
+                <LogoutIcon fontSize="inherit" />
+              </IconButton>
+            ))}
         </div>
       </nav>
     </header>

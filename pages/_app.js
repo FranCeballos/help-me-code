@@ -1,8 +1,10 @@
 import { Analytics } from "@vercel/analytics/react";
 import { SessionProvider } from "next-auth/react";
 import { AnimatePresence } from "framer-motion";
+import NextNProgress from "nextjs-progressbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@/styles/globals.css";
+import { NotificationContextProvider } from "@/store/notification-context";
 
 const darkTheme = createTheme({
   palette: {
@@ -24,6 +26,34 @@ const darkTheme = createTheme({
         },
       },
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: 12,
+        },
+      },
+    },
+    MuiPickersDay: {
+      styleOverrides: {
+        root: {
+          fontSize: 16,
+        },
+      },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          fontSize: 30,
+        },
+      },
+    },
+    MuiPickersYear: {
+      styleOverrides: {
+        yearButton: {
+          fontSize: 15,
+        },
+      },
+    },
   },
 });
 
@@ -32,15 +62,18 @@ export default function App({
   pageProps: { session, ...pageProps },
 }) {
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      <SessionProvider session={session}>
-        <ThemeProvider theme={darkTheme}>
-          <main>
-            <Component {...pageProps} />
-            <Analytics />
-          </main>
-        </ThemeProvider>
-      </SessionProvider>
-    </AnimatePresence>
+    <NotificationContextProvider>
+      <AnimatePresence mode="wait" initial={false}>
+        <SessionProvider session={session}>
+          <ThemeProvider theme={darkTheme}>
+            <main>
+              <NextNProgress />
+              <Component {...pageProps} />
+              <Analytics />
+            </main>
+          </ThemeProvider>
+        </SessionProvider>
+      </AnimatePresence>
+    </NotificationContextProvider>
   );
 }
