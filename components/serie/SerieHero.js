@@ -10,7 +10,6 @@ import Link from "next/link";
 
 const SerieHero = (props) => {
   const { data: session, status } = useSession();
-  console.log(session);
   const serieData = props.serieData;
   const [favsData, setFavsData] = useState([]);
   const [favIsLoading, setFavIsLoading] = useState(true);
@@ -19,15 +18,17 @@ const SerieHero = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
-    const getFavs = async () => {
-      const response = await fetch("/api/favs");
-      const data = await response.json();
-      return data;
-    };
-    getFavs().then((data) => {
-      setFavsData(data.allFavs);
-      setFavIsLoading(false);
-    });
+    if (session) {
+      const getFavs = async () => {
+        const response = await fetch("/api/favs");
+        const data = await response.json();
+        return data;
+      };
+      getFavs().then((data) => {
+        setFavsData(data.allFavs);
+        setFavIsLoading(false);
+      });
+    }
   }, []);
 
   const addFavHandler = async () => {

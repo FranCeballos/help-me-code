@@ -5,6 +5,12 @@ import { getUserByEmail } from "@/lib/user";
 
 const handler = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
+  if (!session) {
+    res
+      .status(403)
+      .json({ message: "Can't change favs without an user session" });
+    return;
+  }
   const userEmail = session.user.email;
   if (req.method === "GET") {
     try {

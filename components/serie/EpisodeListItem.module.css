@@ -68,7 +68,7 @@
 
 .episode__title {
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 600;
   color: #fff;
 }
 
@@ -84,8 +84,9 @@
 }
 
 .episode__description {
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
   font-size: 1.4rem;
-  font-weight: 400;
+  font-weight: 300;
   color: #fff;
 }
 

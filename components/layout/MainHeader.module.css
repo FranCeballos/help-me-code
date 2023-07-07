@@ -53,10 +53,21 @@
 }
 
 .nav__link {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: #ffffff;
   text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.nav__link-bar {
+  height: 2px;
+  width: 100%;
+  background-color: #ffffff;
+  position: absolute;
+  bottom: 0;
 }
 
 .logo__box {
@@ -69,4 +80,10 @@
   width: auto;
   height: 100%;
   object-fit: contain;
+}
+
+@media screen and (max-width: 768px) {
+  .nav__link-bar {
+    display: none;
+  }
 }

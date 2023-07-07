@@ -12,14 +12,15 @@ const EpisodeContainer = (props) => {
   return (
     <motion.div
       className={classes["episode__container"]}
-      initial={{ x: "100%", opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: "-100%" }}
+      initial={{ y: "100%", opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: "-100%" }}
       transition={{ duration: 1, type: "spring" }}
     >
       <EpisodeInfo
         episodeTitle={episodeData.name}
         serieTitle={serieData.name}
+        serieId={serieData._id}
       ></EpisodeInfo>
       <EpisodeIframe
         episodeName={episodeData.name}

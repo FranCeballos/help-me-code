@@ -20,6 +20,7 @@
   color: white;
   font-size: 2rem;
   margin-left: 7%;
+  font-weight: 700;
 }
 
 .handle {
@@ -51,6 +52,14 @@
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
+
+.slider__right-space {
+  display: none;
+  flex: 0 0 30%;
+  padding: 0;
+  max-width: 5%;
+  aspect-ratio: 9 / 12;
+}
 .disabled {
   cursor: default;
 }
@@ -60,11 +69,15 @@
     overflow-x: scroll;
     margin-top: 1rem;
     margin-left: 1rem;
+    margin-right: 30rem;
   }
   .slider {
     gap: 1rem;
   }
   .handle {
     display: none;
+  }
+  .slider__right-space {
+    display: flex;
   }
 }

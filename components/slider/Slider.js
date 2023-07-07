@@ -58,6 +58,7 @@ const Slider = (props) => {
           {props.seriesData.map((serie) => (
             <SliderItem key={serie._id} seriesData={serie} />
           ))}
+          <div className={classes["slider__right-space"]}></div>
         </motion.div>
         <div
           className={`${classes["handle"]} ${classes["handleNext"]}`}

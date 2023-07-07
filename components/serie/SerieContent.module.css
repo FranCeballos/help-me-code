@@ -11,9 +11,10 @@
   margin-bottom: 9rem;
 }
 .serie__description {
+  font-family: "Neue Haas Grotesk Display Pro", sans-serif;
   color: #fff;
-  font-size: 1.6rem;
-  font-weight: 500;
+  font-size: 1.8rem;
+  font-weight: 300;
 }
 
 .serie__list-title-box {

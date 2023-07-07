@@ -9,11 +9,27 @@ import {
   useFormControl,
   CircularProgress,
 } from "@mui/material";
+import { motion } from "framer-motion";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useSession, signOut } from "next-auth/react";
 import classes from "./MainHeader.module.css";
+
+const barVariant = {
+  rest: {
+    originX: 0,
+    scaleX: 0,
+  },
+  hover: {
+    scaleX: 1,
+  },
+};
+
+const nothing = {
+  rest: {},
+  hover: {},
+};
 
 const MainHeader = () => {
   const { data: session, status } = useSession();
@@ -56,17 +72,42 @@ const MainHeader = () => {
             />
           </Link>
           <ul className={classes["nav__links"]}>
-            <li>
+            <motion.li
+              initial="rest"
+              whileHover="hover"
+              animate="rest"
+              variants={nothing}
+            >
               <Link className={classes["nav__link"]} href="/">
-                Inicio
+                <p>Inicio</p>
+                <motion.div
+                  className={classes["nav__link-bar"]}
+                  variants={barVariant}
+                ></motion.div>
               </Link>
-            </li>
+            </motion.li>
             {session && (
-              <li>
-                <Link className={classes["nav__link"]} href="/mi-lista">
-                  Mi Lista
+              <motion.li
+                initial="rest"
+                whileHover="hover"
+                animate="rest"
+                variants={nothing}
+              >
+                <Link
+                  className={classes["nav__link"]}
+                  href="/mi-lista"
+                  initial="rest"
+                  whileHover="hover"
+                  animate="rest"
+                  variants={nothing}
+                >
+                  <p>Mi Lista</p>
+                  <motion.div
+                    className={classes["nav__link-bar"]}
+                    variants={barVariant}
+                  ></motion.div>
                 </Link>
-              </li>
+              </motion.li>
             )}
           </ul>
         </div>

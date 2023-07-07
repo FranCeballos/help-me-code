@@ -17,7 +17,6 @@ const LogInForm = () => {
   const passwordRef = useRef();
   const [loginError, setLoginError] = useState(initialLoginErrorObj);
   const [loadingSubmit, setLoadingSubmit] = useState(false);
-  console.log(loginError);
   const submitHandler = async () => {
     setLoadingSubmit(true);
     const email = emailRef.current.value;
@@ -28,7 +27,6 @@ const LogInForm = () => {
       email,
       password,
     });
-    console.log(result);
 
     if (!result.ok) {
       setLoginError({ message: result.error, error: true });
