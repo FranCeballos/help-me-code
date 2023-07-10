@@ -15,6 +15,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useSession, signOut } from "next-auth/react";
 import classes from "./MainHeader.module.css";
+import Image from "next/image";
 
 const barVariant = {
   rest: {
@@ -65,10 +66,12 @@ const MainHeader = () => {
       <nav className={classes.nav}>
         <div className={classes["nav__section"]}>
           <Link href="/" className={classes["logo__box"]}>
-            <img
+            <Image
               className={classes["logo"]}
               src="/logo-clear-white.png"
               alt="C3+ Logo"
+              height={299}
+              width={283}
             />
           </Link>
           <ul className={classes["nav__links"]}>

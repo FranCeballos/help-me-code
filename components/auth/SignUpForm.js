@@ -47,20 +47,28 @@ const SignUpForm = () => {
   const passwordSubmitHandler = async (data, hasPasswordError) => {
     const { password } = data;
     const { passwordError, passwordConfirmError } = hasPasswordError;
+    let newSignupInfo = {};
     setSignupInfo((prevInfo) => {
-      return {
+      const signupData = {
         ...prevInfo,
-        password: password,
+        password,
       };
+      newSignupInfo = signupData;
+      return signupData;
     });
     if (passwordError || passwordConfirmError) return;
-
-    const createUserResponse = await createUser(signupInfo);
+    console.log(signupInfo);
+    console.log(newSignupInfo);
+    const createUserResponse = await createUser(newSignupInfo);
+    console.log(createUserResponse);
 
     if (!createUserResponse.serverError) {
       setFormView("success");
       setSignupInfo({});
+      return { error: false };
     }
+
+    return { error: true, message: createUserResponse.message };
   };
 
   let formViewComponent = <NameForm onNext={nameSubmitHandler} />;

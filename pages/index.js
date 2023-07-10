@@ -10,7 +10,7 @@ const HomePage = (props) => {
   return (
     <>
       <HeadComponent
-        title="Inicio"
+        title="C3 Plus"
         description="En esta plataforma encontrarás contenido de series, cursos y podcast que te brindarán herramientas que fortalezcan tu vida y equipen tu llamado"
       ></HeadComponent>
       <NavBarLayout>

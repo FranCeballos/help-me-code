@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
     if (!password) {
       res.status(422).json({
-        message: "Fallo al validar contraseña",
+        message: "Error al enviar contraseña al servidor.",
         serverError: true,
       });
       return;
