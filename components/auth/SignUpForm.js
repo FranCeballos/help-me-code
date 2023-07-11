@@ -57,10 +57,7 @@ const SignUpForm = () => {
       return signupData;
     });
     if (passwordError || passwordConfirmError) return;
-    console.log(signupInfo);
-    console.log(newSignupInfo);
     const createUserResponse = await createUser(newSignupInfo);
-    console.log(createUserResponse);
 
     if (!createUserResponse.serverError) {
       setFormView("success");

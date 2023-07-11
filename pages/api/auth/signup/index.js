@@ -1,5 +1,7 @@
+import sgMail from "@sendgrid/mail";
 import { hashPassword } from "@/lib/auth";
 import { connectToDatabase } from "../../../../lib/db";
+import { resetEmailHTML } from "@/lib/mails";
 
 export default async function handler(req, res) {
   if (req.method === "POST") {
@@ -51,6 +53,20 @@ export default async function handler(req, res) {
         watched: [],
         avatar: null,
       });
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      console.log(email);
+      const response = await sgMail.send({
+        to: email,
+        from: process.env.SENDGRID_EMAIL,
+        subject: "Bienvenido/a a C3 Plus",
+        html: resetEmailHTML(
+          "Cuenta creada con éxito",
+          "Explorá",
+          `https://${req.headers.host}/`,
+          "Encontrá contenido de series, cursos y podcast que te brinden herramientas que fortalezcan tu vida y equipen tu llamado"
+        ),
+      });
+      console.log(response);
     } catch (error) {
       res.status(500).json({
         message:
@@ -60,6 +76,7 @@ export default async function handler(req, res) {
       client.close();
       return;
     }
+    console.log(email);
 
     res.status(201).json({ message: "Created user!", serverError: false });
     client.close();

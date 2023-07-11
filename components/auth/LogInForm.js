@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
-import { TextField, Button, CircularProgress } from "@mui/material";
+import { TextField, Button, CircularProgress, IconButton } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import AuthFormWrapper from "../UI/AuthFormWrapper";
 import classes from "./AuthForm.module.css";
 import { useRef, useState } from "react";
@@ -38,6 +39,11 @@ const LogInForm = () => {
   };
   return (
     <div className={classes["auth__box"]}>
+      <Link href="/" className={classes["auth__nav-back-box"]}>
+        <IconButton style={{ scale: 1.1 }}>
+          <ArrowBackIcon style={{ fontSize: 25 }} />
+        </IconButton>
+      </Link>
       <AuthFormWrapper isLogin={true}>
         <div className={classes["auth__title-box"]}>
           <div className={classes["auth__image-box"]}>
@@ -87,8 +93,11 @@ const LogInForm = () => {
             </Button>
           )}
         </div>
-        <Link className={classes["auth__home-button"]} href="/">
-          <Button variant="outlined">INICIO</Button>
+        <Link
+          className={`${classes["auth__reset-password-link"]}`}
+          href="/cambiar-password"
+        >
+          ¿Olvidaste tu contraseña?
         </Link>
       </AuthFormWrapper>
     </div>

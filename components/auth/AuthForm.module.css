@@ -36,6 +36,12 @@
   object-fit: contain;
 }
 
+.auth__nav-back-box {
+  position: absolute;
+  top: 1.8rem;
+  left: 1.8rem;
+}
+
 .auth__title {
   font-weight: 700;
   text-align: center;
@@ -136,6 +142,26 @@
   right: 0;
   height: 10px;
   background: -webkit-linear-gradient(180deg, #36d1dc, #5b86e5, #36d1dc);
+}
+
+.signup__wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 0 1 40rem;
+  gap: 4rem;
+  border-radius: 20px;
+  padding: 4rem;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.auth__reset-password-link {
+  font-size: 1.3rem;
+  color: white;
+  text-decoration: none;
 }
 
 @media screen and (max-width: 970px) {
