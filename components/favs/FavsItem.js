@@ -3,7 +3,6 @@ import classes from "./FavsItem.module.css";
 import { motion } from "framer-motion";
 
 const FavsItem = ({ favData }) => {
-  console.log(favData);
   return (
     <Link href={`/series/${favData._id}`}>
       <motion.div

@@ -4,7 +4,7 @@ import {
   matchPasswords,
 } from "@/lib/client-input-validation";
 import { connectToDatabase } from "@/lib/db";
-import { getUserIdByEmail } from "@/lib/user";
+import { getUser } from "@/lib/user";
 import { hash } from "bcryptjs";
 import { ObjectId } from "mongodb";
 import sgMail from "@sendgrid/mail";
@@ -13,8 +13,8 @@ import { hashPassword } from "@/lib/auth";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
+    let client;
     try {
-      console.log(req.headers.host);
       const email = req.body.email;
       const emailIsValid = await validateEmail(email);
 
@@ -24,17 +24,17 @@ const handler = async (req, res) => {
         throw error;
       }
 
-      const userId = await getUserIdByEmail(email);
-      if (userId.error) {
+      const user = await getUser({ email: email }, { _id: 1 });
+      if (user.length === 0) {
         const error = new Error("No hay un usuario registrado con ese email.");
         error.status = 404;
         throw error;
       }
-
+      const userId = user[0]._id;
       const token = await hash("randomSTRING010203", 12);
       const fixedToken = token.replaceAll("/", ".");
 
-      const client = await connectToDatabase();
+      client = await connectToDatabase();
       const db = client.db();
       await db.collection("users").findOneAndUpdate(
         { _id: new ObjectId(userId) },
@@ -59,11 +59,14 @@ const handler = async (req, res) => {
       });
 
       res.status(200).json(userId);
+      client.close();
     } catch (error) {
+      client?.close();
       res.status(error.status).json({ error: true, message: error.message });
     }
   }
   if (req.method === "PATCH") {
+    let client;
     try {
       const { password, passwordConfirm, userId, userEmail } = req.body;
       const passwordIsValid = validatePassword(password);
@@ -85,7 +88,7 @@ const handler = async (req, res) => {
       };
       const hashedPassword = await hashPassword(password);
 
-      const client = await connectToDatabase();
+      client = await connectToDatabase();
       const db = client.db();
       await db.collection("users").findOneAndUpdate(
         { _id: new ObjectId(userId) },
@@ -98,7 +101,6 @@ const handler = async (req, res) => {
         }
       );
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      console.log(userEmail);
       await sgMail.send({
         to: userEmail,
         from: process.env.SENDGRID_EMAIL,
@@ -110,11 +112,12 @@ const handler = async (req, res) => {
           "Éxito en el cambio de contraseña"
         ),
       });
+      client.close();
       res
         .status(201)
         .json({ message: "Password updated", errors: passwordSuccessObj });
     } catch (error) {
-      console.log(error.message);
+      client?.close();
       res.status(500).json({ message: "Something went wrong" });
     }
   }

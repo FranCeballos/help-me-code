@@ -1,9 +1,10 @@
 import Serie from "../../../components/serie/Serie";
 import HeadComponent from "@/components/head/Head";
 import NavBarLayout from "@/components/layout/NavBarLayout";
-import { getAllSeries, getSerieById } from "@/lib/series";
+import { getAllSeries } from "@/lib/series";
 import classes from "../../../components/serie/Serie.module.css";
 import { motion, AnimatePresence } from "framer-motion";
+import { ObjectId } from "mongodb";
 
 const SeriePage = (props) => {
   const serieData = props.serieData;
@@ -31,9 +32,10 @@ const SeriePage = (props) => {
 };
 
 export const getStaticPaths = async () => {
-  const seriesData = await getAllSeries();
-  const seriesIds = seriesData.map((serie) => String(serie._id));
-  const pathsWithParams = seriesIds.map((serieId) => ({ params: { serieId } }));
+  const seriesData = await getAllSeries({}, { _id: 1 });
+  const pathsWithParams = seriesData.map((serieId) => ({
+    params: { serieId: serieId._id },
+  }));
 
   return {
     paths: pathsWithParams,
@@ -43,7 +45,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const serieId = context.params.serieId;
-  const serie = await getSerieById(serieId);
+  const [serie] = await getAllSeries({ _id: new ObjectId(serieId) });
 
   if (!serie._id) {
     return {

@@ -1,7 +1,8 @@
 import EpisodeContainer from "@/components/episode/EpisodeContainer";
 import HeadComponent from "@/components/head/Head";
 import NavBarLayout from "@/components/layout/NavBarLayout";
-import { getSerieById } from "@/lib/series";
+import { getAllSeries } from "@/lib/series";
+import { ObjectId } from "mongodb";
 import { useRouter } from "next/router";
 
 const EpisodePage = (props) => {
@@ -27,9 +28,14 @@ const EpisodePage = (props) => {
 
 export const getServerSideProps = async (context) => {
   const { serieId, episodeNum } = context.params;
-  const serieData = await getSerieById(serieId);
+  const [serieData] = await getAllSeries({ _id: new ObjectId(serieId) });
+  const parsedEpisodeNum = parseFloat(episodeNum);
+  const validEpisodeNum =
+    parsedEpisodeNum !== NaN &&
+    parsedEpisodeNum > 0 &&
+    parsedEpisodeNum <= serieData.numOfEpisodes;
 
-  if (!serieData) {
+  if (!validEpisodeNum) {
     return {
       notFound: true,
     };

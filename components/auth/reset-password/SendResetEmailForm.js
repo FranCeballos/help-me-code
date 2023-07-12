@@ -27,7 +27,6 @@ const SendResetEmailForm = () => {
       }),
     });
     const parsedResponse = await response.json();
-    console.log(parsedResponse);
 
     if (parsedResponse.error) {
       setEmailError({ error: true, message: parsedResponse.message });

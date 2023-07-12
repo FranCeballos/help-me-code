@@ -1,7 +1,6 @@
-import { addFavToUser, deleteFavFromUser, getAllFavs } from "@/lib/user";
+import { addOrDeleteFavToUser, getUser } from "@/lib/user";
 import { authOptions } from "../auth/[...nextauth]";
 import { getServerSession } from "next-auth";
-import { getUserByEmail } from "@/lib/user";
 
 const handler = async (req, res) => {
   const session = await getServerSession(req, res, authOptions);
@@ -14,10 +13,8 @@ const handler = async (req, res) => {
   const userEmail = session.user.email;
   if (req.method === "GET") {
     try {
-      const user = await getUserByEmail(userEmail);
-      const allFavs = await getAllFavs(String(user._id));
-
-      res.status(200).json({ allFavs });
+      const [allFavs] = await getUser({ email: userEmail }, { favList: 1 });
+      res.status(200).json({ allFavs: allFavs.favList });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
@@ -25,26 +22,19 @@ const handler = async (req, res) => {
   if (req.method === "PATCH") {
     try {
       const { serieId, addFav } = req.body;
-      const user = await getUserByEmail(session.user.email);
-      if (addFav) {
-        const result = await addFavToUser(String(user._id), serieId);
+      const [user] = await getUser({ email: session.user.email }, { _id: 1 });
+      const result = await addOrDeleteFavToUser(
+        String(user._id),
+        serieId,
+        addFav
+      );
 
-        if (result.error) {
-          res.status(result.status || 500).json({ message: result.message });
-          return;
-        }
-
-        res.status(201).json({ message: "Serie añadida a Mi Lista" });
-      } else {
-        const result = await deleteFavFromUser(String(user._id), serieId);
-
-        if (result.error) {
-          res.status(result.status || 500).json({ message: result.message });
-          return;
-        }
-
-        res.status(200).json({ message: "Serie eliminada de Mi Lista" });
+      if (result.error) {
+        res.status(result.status || 500).json({ message: result.message });
+        return;
       }
+
+      res.status(200).json({ message: result.message });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

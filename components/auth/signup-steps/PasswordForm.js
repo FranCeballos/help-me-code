@@ -30,14 +30,8 @@ const PasswordForm = ({ onNext }) => {
       setPasswordErrors(result);
     }
     const response = await onNext({ password }, result);
-    console.log(response);
     if (response.error) {
       setLoading(false);
-      setPasswordErrors({
-        passwordError: false,
-        passwordConfirmError: true,
-        passwordConfirmMessage: response.message,
-      });
     }
   };
 

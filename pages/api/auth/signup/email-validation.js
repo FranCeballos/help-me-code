@@ -45,8 +45,8 @@ const handler = async (req, res) => {
       return;
     }
 
-    res.status(201).json({ message: "Email valido", emailIsValid });
     client.close();
+    res.status(201).json({ message: "Email valido", emailIsValid });
   }
 };
 

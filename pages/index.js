@@ -35,7 +35,10 @@ const HomePage = (props) => {
 
 export const getStaticProps = async () => {
   try {
-    const allSeries = await getAllSeries();
+    const allSeries = await getAllSeries(
+      {},
+      { _id: 1, imageUrl: 1, name: 1, category: 1 }
+    );
     return {
       props: {
         allSeries: JSON.parse(JSON.stringify(allSeries)),

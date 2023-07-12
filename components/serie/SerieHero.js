@@ -9,11 +9,12 @@ import classes from "./Serie.module.css";
 import Link from "next/link";
 
 const SerieHero = (props) => {
-  const { data: session, status } = useSession();
   const serieData = props.serieData;
-  const [favsData, setFavsData] = useState([]);
+  const { data: session } = useSession();
   const [favIsLoading, setFavIsLoading] = useState(true);
-  const serieIsInFavs = favsData?.includes(serieData._id);
+  const [favsData, setFavsData] = useState([]);
+
+  const serieIsInFavs = favsData.includes(serieData._id);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -29,7 +30,7 @@ const SerieHero = (props) => {
         setFavIsLoading(false);
       });
     }
-  }, []);
+  }, [session]);
 
   const addFavHandler = async () => {
     setAnchorEl(null);
@@ -44,7 +45,7 @@ const SerieHero = (props) => {
         addFav: true,
       }),
     });
-    if (response.status === 201) {
+    if (response.status === 200) {
       setFavsData((prev) => {
         return [...prev, serieData._id];
       });

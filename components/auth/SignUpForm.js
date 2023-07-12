@@ -47,6 +47,7 @@ const SignUpForm = () => {
   const passwordSubmitHandler = async (data, hasPasswordError) => {
     const { password } = data;
     const { passwordError, passwordConfirmError } = hasPasswordError;
+
     let newSignupInfo = {};
     setSignupInfo((prevInfo) => {
       const signupData = {
@@ -56,7 +57,11 @@ const SignUpForm = () => {
       newSignupInfo = signupData;
       return signupData;
     });
-    if (passwordError || passwordConfirmError) return;
+
+    if (passwordError || passwordConfirmError) {
+      return { error: true };
+    }
+
     const createUserResponse = await createUser(newSignupInfo);
 
     if (!createUserResponse.serverError) {

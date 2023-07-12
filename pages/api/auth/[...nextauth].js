@@ -19,6 +19,7 @@ export const authOptions = {
         });
 
         if (!user) {
+          client.close();
           throw new Error("No hay un usuario registrado con ese email");
         }
 
@@ -28,6 +29,7 @@ export const authOptions = {
         );
 
         if (!passwordIsValid) {
+          client.close();
           throw new Error("Email y/o contraseña no son correctas");
         }
 

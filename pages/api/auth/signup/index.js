@@ -52,9 +52,12 @@ export default async function handler(req, res) {
         favList: [],
         watched: [],
         avatar: null,
+        createdDate: new Date(Date.now()).toLocaleDateString(),
+        resetToken: null,
+        resetTokenExpiration: null,
       });
+      client.close();
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-      console.log(email);
       const response = await sgMail.send({
         to: email,
         from: process.env.SENDGRID_EMAIL,
@@ -66,19 +69,15 @@ export default async function handler(req, res) {
           "Encontrá contenido de series, cursos y podcast que te brinden herramientas que fortalezcan tu vida y equipen tu llamado"
         ),
       });
-      console.log(response);
+      res.status(201).json({ message: "Created user!", serverError: false });
     } catch (error) {
+      client.close();
       res.status(500).json({
         message:
           "Fallo al crear usuario en la base de datos! Pruebe en un minuto",
         serverError: true,
       });
-      client.close();
       return;
     }
-    console.log(email);
-
-    res.status(201).json({ message: "Created user!", serverError: false });
-    client.close();
   }
 }

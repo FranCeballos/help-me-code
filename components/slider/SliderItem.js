@@ -11,7 +11,7 @@ const RowItem = ({ seriesData }) => {
       <motion.img
         className={classes["item__image"]}
         src={seriesData.imageUrl}
-        alt="Random image"
+        alt={seriesData.name}
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3 }}
       />

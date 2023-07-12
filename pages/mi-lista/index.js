@@ -1,12 +1,13 @@
 import NavBarLayout from "@/components/layout/NavBarLayout";
 import HeadComponent from "@/components/head/Head";
 import MyFavs from "@/components/favs/MyFavs";
-import { getAllFavsDataByEmail } from "@/lib/user";
+import { getUser } from "@/lib/user";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { getServerSession } from "next-auth";
+import { getAllSeries } from "@/lib/series";
+import { ObjectId } from "mongodb";
 const MyFavsPage = (props) => {
   const userFavs = props.userFavs;
-  console.log(userFavs);
   return (
     <NavBarLayout>
       <HeadComponent
@@ -28,11 +29,20 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-  const userFavs = await getAllFavsDataByEmail(session.user.email);
+  const user = await getUser(
+    { email: session.user.email },
+    { _id: 1, favList: 1 },
+    false
+  );
+  const userFavs = user[0].favList;
+  const favsIds = userFavs.map((id) => {
+    return new ObjectId(id);
+  });
+  const allFavs = await getAllSeries({ _id: { $in: favsIds } });
 
   return {
     props: {
-      userFavs,
+      userFavs: allFavs,
     },
   };
 };
