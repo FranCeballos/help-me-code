@@ -10,7 +10,7 @@ const handler = async (req, res) => {
     if (!emailIsValid) {
       return res
         .status(422)
-        .json({ message: "Formato de email no valido.", emailIsValid });
+        .json({ message: "Enter a valid email.", emailIsValid });
     }
 
     let client;
@@ -18,7 +18,7 @@ const handler = async (req, res) => {
       client = await connectToDatabase();
     } catch (error) {
       res.status(500).json({
-        message: "Fallo al conectar con la base de datos! Pruebe en un minuto",
+        message: "Can't connect to database! Try again in a few minutes.",
       });
       return;
     }
@@ -29,7 +29,7 @@ const handler = async (req, res) => {
       existingUser = await db.collection("users").findOne({ email: email });
     } catch (error) {
       res.status(500).json({
-        message: "Fallo al conectar con la base de datos! Pruebe en un minuto",
+        message: "Can't connect to database! Try again in a few minutes.",
         emailIsValid,
       });
       client.close();
@@ -38,7 +38,7 @@ const handler = async (req, res) => {
 
     if (existingUser) {
       res.status(422).json({
-        message: "Ya hay una cuenta asociada a ese email. Usar uno distinto.",
+        message: "Email is already registered. Use a different one.",
         emailIsValid,
       });
       client.close();
@@ -46,7 +46,7 @@ const handler = async (req, res) => {
     }
 
     client.close();
-    res.status(201).json({ message: "Email valido", emailIsValid });
+    res.status(201).json({ message: "Invalid email", emailIsValid });
   }
 };
 

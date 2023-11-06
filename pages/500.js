@@ -5,16 +5,16 @@ const NotFoundPage = () => {
   return (
     <>
       <HeadComponent
-        title="No encontrado"
-        description="No se ha encontrado el recurso solicitado"
+        title="Server Error"
+        description="There has been an error in the server."
       ></HeadComponent>
       <NavBarLayout>
         <div className="center-children">
           <h1 className="main-clip-text">
-            !Ups! Ha habido un problema en los servidores.
+            Ups! There has been an error in the server.
           </h1>
           <p className="simple-white-text">
-            Error 500. Prueba de nuevo en un minuto.
+            500 Error. Try again in a few minutes.
           </p>
         </div>
       </NavBarLayout>

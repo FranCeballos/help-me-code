@@ -68,11 +68,12 @@ const MainHeader = () => {
           <Link href="/" className={classes["logo__box"]}>
             <Image
               className={classes["logo"]}
-              src="/logo-clear-white.png"
-              alt="C3+ Logo"
-              height={299}
-              width={283}
+              src="/logo-clear.png"
+              alt="Help Me Code Logo"
+              height={512}
+              width={512}
             />
+            <p className={classes["logo__text"]}>Help Me Code</p>
           </Link>
           <ul className={classes["nav__links"]}>
             <motion.li
@@ -82,7 +83,7 @@ const MainHeader = () => {
               variants={nothing}
             >
               <Link className={classes["nav__link"]} href="/">
-                <p>Inicio</p>
+                <p>Home</p>
                 <motion.div
                   className={classes["nav__link-bar"]}
                   variants={barVariant}
@@ -98,13 +99,13 @@ const MainHeader = () => {
               >
                 <Link
                   className={classes["nav__link"]}
-                  href="/mi-lista"
+                  href="/my-list"
                   initial="rest"
                   whileHover="hover"
                   animate="rest"
                   variants={nothing}
                 >
-                  <p>Mi Lista</p>
+                  <p>My List</p>
                   <motion.div
                     className={classes["nav__link-bar"]}
                     variants={barVariant}
@@ -148,7 +149,7 @@ const MainHeader = () => {
             </FormControl>
           )} */}
           {!session && status !== "loading" && (
-            <Link href="/ingresar">
+            <Link href="/signin">
               <IconButton
                 aria-label="login"
                 size="large"

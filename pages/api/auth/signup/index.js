@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 
     if (!password) {
       res.status(422).json({
-        message: "Error al enviar contraseña al servidor.",
+        message: "Invalid password received in server.",
         serverError: true,
       });
       return;
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       client = await connectToDatabase();
     } catch (error) {
       res.status(500).json({
-        message: "Fallo al conectar con la base de datos! Pruebe en un minuto",
+        message: "Can't connect to database! Try again in a few minutes.",
         serverError: true,
       });
       return;
@@ -61,20 +61,19 @@ export default async function handler(req, res) {
       const response = await sgMail.send({
         to: email,
         from: process.env.SENDGRID_EMAIL,
-        subject: "Bienvenido/a a C3 Plus",
+        subject: "Welcome to Help Me Code",
         html: resetEmailHTML(
-          "Cuenta creada con éxito",
+          "Your Help Me Code account has been created successfully.",
           "Explorá",
           `https://${req.headers.host}/`,
-          "Encontrá contenido de series, cursos y podcast que te brinden herramientas que fortalezcan tu vida y equipen tu llamado"
+          "The best coding videos. All in one place."
         ),
       });
-      res.status(201).json({ message: "Created user!", serverError: false });
+      res.status(201).json({ message: "User created!", serverError: false });
     } catch (error) {
       client.close();
       res.status(500).json({
-        message:
-          "Fallo al crear usuario en la base de datos! Pruebe en un minuto",
+        message: "Could not create user! Try again in a few minutes.",
         serverError: true,
       });
       return;

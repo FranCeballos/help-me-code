@@ -6,7 +6,7 @@ const TitleForm = ({ title, description }) => {
       <div className={classes["auth__image-box"]}>
         <Image
           className={classes["auth__image"]}
-          src="/logo-clear-white.png"
+          src="/logo-clear.png"
           width={200}
           height={200}
           alt="C3 Logo"

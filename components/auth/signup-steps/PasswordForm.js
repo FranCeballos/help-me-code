@@ -37,25 +37,25 @@ const PasswordForm = ({ onNext }) => {
 
   return (
     <AuthFormWrapper isLogin={false}>
-      <TitleForm title="Contraseña" description="Añade seguridad" />
+      <TitleForm title="Password" description="Add security" />
       <div className={classes["auth__inputs-box"]}>
         <TextField
           inputRef={passwordRef}
           id="password"
-          label="Nueva contraseña"
+          label="New password"
           variant="outlined"
           fullWidth
           type="password"
           margin="dense"
           error={passwordErrors.passwordError}
           helperText={
-            "Debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número."
+            "Must have at least 8 characters, one lowercase, one uppercase and a number."
           }
         />
         <TextField
           inputRef={passwordConfirmRef}
           id="passwordConfirm"
-          label="Confirmar contraseña"
+          label="Confirm password"
           variant="outlined"
           type="password"
           fullWidth
@@ -71,7 +71,7 @@ const PasswordForm = ({ onNext }) => {
           />
         ) : (
           <Button onClick={passwordSubmitHandler} variant="contained">
-            Siguiente
+            Finish
           </Button>
         )}
       </div>

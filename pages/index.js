@@ -10,8 +10,8 @@ const HomePage = (props) => {
   return (
     <>
       <HeadComponent
-        title="C3 Plus"
-        description="En esta plataforma encontrarás contenido de series, cursos y podcast que te brindarán herramientas que fortalezcan tu vida y equipen tu llamado"
+        title="Help Me Code"
+        description="The best YouTube programming videos. All in one place."
       ></HeadComponent>
       <NavBarLayout>
         <div className={classes["pic-box"]}>
@@ -24,7 +24,7 @@ const HomePage = (props) => {
             loop
             playsInline
           >
-            <source src="/home/mainc3plus.mp4" type="video/mp4" />
+            <source src="/home/hero-video.mp4" type="video/mp4" />
           </video>
         </div>
         <RowsContainer seriesData={props.allSeries} />

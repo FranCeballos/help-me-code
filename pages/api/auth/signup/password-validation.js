@@ -11,9 +11,7 @@ const handler = async (req, res) => {
     return res.status(422).json({
       passwordError: !passwordIsValid,
       passwordConfirmError: !passwordsMatch,
-      passwordConfirmMessage: !passwordsMatch
-        ? "Las contraseñas no coinciden"
-        : " ",
+      passwordConfirmMessage: !passwordsMatch ? "Passwords don't match" : " ",
     });
   }
 

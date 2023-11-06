@@ -74,12 +74,21 @@
   width: auto;
   height: 40%;
   margin-right: 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo {
   width: auto;
   height: 100%;
   object-fit: contain;
+}
+
+.logo__text {
+  height: fit-content;
+  font-size: 2rem;
+  margin-left: 10px;
 }
 
 @media screen and (max-width: 768px) {

@@ -4,17 +4,17 @@ import classes from "./MyFavs.module.css";
 import Link from "next/link";
 const MyFavs = (props) => {
   const userFavs = props.userFavs;
-  const favsEmpty = userFavs.length === 0;
+  const favsIsEmpty = userFavs.length === 0;
   return (
     <div className={classes["favs__container"]}>
-      <h1 className="main-clip-text">Mi Lista</h1>
-      {!favsEmpty ? (
+      <h1 className="main-clip-text">My List</h1>
+      {!favsIsEmpty ? (
         <FavsGrid userFavs={userFavs} />
       ) : (
         <div className={classes["favs__empty-box"]}>
-          <p className={classes["favs__text"]}>No hay series añadidas.</p>
+          <p className={classes["favs__text"]}>You don't have saved favs.</p>
           <Link href="/" className="link__style-off">
-            <Button variant="contained">Navegá</Button>
+            <Button variant="contained">Navigate</Button>
           </Link>
         </div>
       )}

@@ -5,15 +5,13 @@ const NotFoundPage = () => {
   return (
     <>
       <HeadComponent
-        title="No encontrado"
-        description="No se ha encontrado el recurso solicitado"
+        title="Not Found"
+        description="Ups! Resource not found."
       ></HeadComponent>
       <NavBarLayout>
         <div className="center-children">
-          <h1 className="main-clip-text">
-            !Ups! No hemos encontrado el recurso solicitado.
-          </h1>
-          <p className="simple-white-text">Error 404</p>
+          <h1 className="main-clip-text">Ups! Resource not found.</h1>
+          <p className="simple-white-text">404 Error</p>
         </div>
       </NavBarLayout>
     </>

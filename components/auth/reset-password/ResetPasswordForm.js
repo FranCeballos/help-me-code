@@ -1,8 +1,10 @@
 import { useState, useRef } from "react";
 import { Link } from "next/link";
+
 import TitleForm from "../signup-steps/TitleForm";
 import AuthFormWrapper from "@/components/UI/AuthFormWrapper";
 import { TextField, Button, CircularProgress } from "@mui/material";
+
 import classes from "../AuthForm.module.css";
 
 const initialPasswordErrorsObj = {
@@ -45,27 +47,27 @@ const ResetPasswordForm = ({ userId, onSuccess, userEmail }) => {
     <div className={classes["auth__box-center"]}>
       <AuthFormWrapper isLogin={false}>
         <TitleForm
-          title="Reiniciar Contraseña"
-          description="Recupera tu cuenta"
+          title="Reset Your Password"
+          description="Recover your account"
         />
         <div className={classes["auth__inputs-box"]}>
           <TextField
             inputRef={passwordRef}
             id="password"
-            label="Nueva contraseña"
+            label="New password"
             variant="outlined"
             fullWidth
             type="password"
             margin="dense"
             error={passwordErrors.passwordError}
             helperText={
-              "Debe tener al menos 8 caracteres, una mayúscula, una minúscula y un número."
+              "Must have at least 8 characters, one lowercase, one uppercase and a number."
             }
           />
           <TextField
             inputRef={passwordConfirmRef}
             id="passwordConfirm"
-            label="Confirmar contraseña"
+            label="Confirm password"
             variant="outlined"
             type="password"
             fullWidth
@@ -81,7 +83,7 @@ const ResetPasswordForm = ({ userId, onSuccess, userEmail }) => {
             />
           ) : (
             <Button onClick={passwordResetSubmitHandler} variant="contained">
-              Cambiar
+              Update password
             </Button>
           )}
         </div>

@@ -29,7 +29,7 @@ const EmailForm = ({ onNext }) => {
 
   return (
     <AuthFormWrapper isLogin={false}>
-      <TitleForm title="Email" description="Completa con tu email" />
+      <TitleForm title="Email" description="Complete with your email" />
       <div className={classes["auth__inputs-box"]}>
         <TextField
           inputRef={emailRef}

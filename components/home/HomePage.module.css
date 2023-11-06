@@ -19,6 +19,7 @@
   object-position: center;
   object-fit: cover;
   z-index: 2;
+  filter: hue-rotate(90deg);
 }
 
 .video__overlay {

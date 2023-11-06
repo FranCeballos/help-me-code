@@ -1,6 +1,11 @@
 @import url("/fonts/NeueHassGrotesk/stylesheet.css");
 @import url("/fonts/Gilroy/stylesheet.css");
 
+:root {
+  --main-bg-color: #000000;
+  --slider-padding: 15rem;
+}
+
 *,
 *::after,
 *::before {
@@ -20,6 +25,11 @@ html {
 body {
   background-color: var(--main-bg-color);
   font-family: "Gilroy", sans-serif;
+}
+
+a {
+  color: white;
+  text-decoration: none;
 }
 
 .view-port__width {
@@ -67,11 +77,6 @@ body {
 
 .link__style-off {
   text-decoration: none;
-}
-
-:root {
-  --main-bg-color: #000000;
-  --slider-padding: 15rem;
 }
 
 /* #141414 */

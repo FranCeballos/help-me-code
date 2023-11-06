@@ -49,13 +49,13 @@ const LogInForm = () => {
           <div className={classes["auth__image-box"]}>
             <Image
               className={classes["auth__image"]}
-              src="/logo-clear-white.png"
+              src="/logo-clear.png"
               width={200}
               height={200}
               alt="C3 Logo"
             />
           </div>
-          <h1 className={classes["auth__title"]}>Ingresar</h1>
+          <h1 className={classes["auth__title"]}>Sign In</h1>
         </div>
         <div>
           <TextField
@@ -71,7 +71,7 @@ const LogInForm = () => {
             error={loginError.error}
             inputRef={passwordRef}
             id="password"
-            label="Contraseña"
+            label="Password"
             variant="outlined"
             fullWidth
             margin="dense"
@@ -80,8 +80,8 @@ const LogInForm = () => {
           />
         </div>
         <div className={classes["auth__buttons-box-between"]}>
-          <Link href="/registrarse" className={classes["register__button"]}>
-            <Button variant="text">Crear cuenta</Button>
+          <Link href="/signup" className={classes["register__button"]}>
+            <Button variant="text">Create account</Button>
           </Link>
           {loadingSubmit ? (
             <CircularProgress
@@ -89,15 +89,15 @@ const LogInForm = () => {
             />
           ) : (
             <Button onClick={submitHandler} variant="contained">
-              Ingresar
+              Sign In
             </Button>
           )}
         </div>
         <Link
           className={`${classes["auth__reset-password-link"]}`}
-          href="/cambiar-password"
+          href="/reset-password"
         >
-          ¿Olvidaste tu contraseña?
+          Forgot your password?
         </Link>
       </AuthFormWrapper>
     </div>

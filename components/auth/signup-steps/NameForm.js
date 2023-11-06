@@ -22,22 +22,22 @@ const NameForm = ({ onNext }) => {
   };
   return (
     <AuthFormWrapper isLogin={false}>
-      <TitleForm title="Crea una cuenta C3+" description="Ingresa tu nombre" />
+      <TitleForm title="Create an account" description="Enter your name" />
       <div className={classes["auth__inputs-box"]}>
         <TextField
           id="name"
           inputRef={firstNameRef}
-          label="Nombre"
+          label="First name"
           variant="outlined"
           fullWidth
           margin="dense"
           error={firstnameHasError}
-          helperText={firstnameHasError ? "Ingresar nombre" : ""}
+          helperText={firstnameHasError ? "Enter name" : ""}
         />
         <TextField
           inputRef={lastNameRef}
           id="lastname"
-          label="Apellido (opcional)"
+          label="Last name (optional)"
           variant="outlined"
           fullWidth
           margin="dense"
@@ -45,10 +45,10 @@ const NameForm = ({ onNext }) => {
       </div>
       <div className={classes["auth__buttons-box-between"]}>
         <Link href="/ingresar" className={classes["register__button"]}>
-          <Button variant="text">¿Ya tenés cuenta?</Button>
+          <Button variant="text">Already have an account?</Button>
         </Link>
         <Button onClick={nameSubmitHandler} variant="contained">
-          Siguiente
+          Continue
         </Button>
       </div>
     </AuthFormWrapper>

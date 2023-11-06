@@ -7,10 +7,10 @@ import classes from "../AuthForm.module.css";
 const SuccessForm = () => {
   return (
     <AuthFormWrapper isLogin={false}>
-      <TitleForm title="Cuenta creada con exito" description="" />
+      <TitleForm title="Account created successfully" description="" />
       <div className={classes["auth__buttons-box-center"]}>
-        <Link className={classes["register__button"]} href="/ingresar">
-          <Button variant="contained">Ingresar</Button>
+        <Link className={classes["register__button"]} href="/signin">
+          <Button variant="contained">Sign In</Button>
         </Link>
       </div>
     </AuthFormWrapper>

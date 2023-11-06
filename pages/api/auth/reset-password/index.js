@@ -19,14 +19,14 @@ const handler = async (req, res) => {
       const emailIsValid = await validateEmail(email);
 
       if (!emailIsValid) {
-        const error = new Error("Formato de email invalido");
+        const error = new Error("Invalid email format.");
         error.status = 422;
         throw error;
       }
 
       const user = await getUser({ email: email }, { _id: 1 });
       if (user.length === 0) {
-        const error = new Error("No hay un usuario registrado con ese email.");
+        const error = new Error("No user registered with that email.");
         error.status = 404;
         throw error;
       }
@@ -49,12 +49,12 @@ const handler = async (req, res) => {
       await sgMail.send({
         to: email,
         from: process.env.SENDGRID_EMAIL,
-        subject: "Cambiar contraseña.",
+        subject: "Reset Your Password",
         html: resetEmailHTML(
-          "Recuperá tu cuenta",
-          "Cambiar contraseña",
-          `https://${req.headers.host}/cambiar-password/${fixedToken}/${email}`,
-          "No estás solo/a. Todos hemos estado aquí en algún momento. Recupera tu cuenta."
+          "Reset Your Password",
+          "Change password",
+          `https://${req.headers.host}/reset-password/${fixedToken}/${email}`,
+          "Don't worry. We've all been here."
         ),
       });
 
@@ -76,7 +76,7 @@ const handler = async (req, res) => {
           passwordError: !passwordIsValid,
           passwordConfirmError: !passwordsMatch,
           passwordConfirmMessage: !passwordsMatch
-            ? "Las contraseñas no coinciden"
+            ? "Passwords don't match."
             : " ",
         });
       }
@@ -104,12 +104,12 @@ const handler = async (req, res) => {
       await sgMail.send({
         to: userEmail,
         from: process.env.SENDGRID_EMAIL,
-        subject: "Contraseña cambiada",
+        subject: "Password Updated",
         html: resetEmailHTML(
-          "Contraseña cambiada con éxito.",
-          "Ingresar",
-          `https://${req.headers.host}/ingresar`,
-          "Éxito en el cambio de contraseña"
+          "Password successfully updated",
+          "Sign In",
+          `https://${req.headers.host}/signin`,
+          "Password successfully updated"
         ),
       });
       client.close();

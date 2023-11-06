@@ -46,16 +46,16 @@ const BirthForm = ({ onNext }) => {
   return (
     <AuthFormWrapper isLogin={false}>
       <TitleForm
-        title="Información básica"
-        description="Completa tu fecha de nacimiento y género"
+        title="Basic information"
+        description="Complete with your birth date and gender"
       />
       <div className={classes["auth__birth-grid"]}>
-        <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale="es">
+        <LocalizationProvider dateAdapter={AdapterLuxon} adapterLocale="en">
           <DatePicker
             error
             inputRef={dateRef}
             disableFuture
-            label={"DD/MM/AAAA"}
+            label={"MM/DD/YYYY"}
             className="Mui-error"
           />
         </LocalizationProvider>
@@ -64,29 +64,29 @@ const BirthForm = ({ onNext }) => {
           className={classes["auth__birth-gender"]}
           fullWidth
         >
-          <InputLabel id="genderTitle">Género</InputLabel>
+          <InputLabel id="genderTitle">Gender</InputLabel>
           <Select
             native
             inputRef={genderRef}
             labelId="genderTitle"
             id="gender"
-            label="Género"
+            label="Gender"
             value={genderSelected}
             onChange={handleGenderChange}
           >
             <option aria-label="None" value="" />
-            <option value={"woman"}>Mujer</option>
-            <option value={"man"}>Hombre</option>
-            <option value={"na"}>Prefiero no decirlo</option>
+            <option value={"woman"}>Woman</option>
+            <option value={"man"}>Man</option>
+            <option value={"na"}>I prefer not to answer</option>
           </Select>
           <FormHelperText>
-            {genderHasError ? "Selecciona género" : " "}
+            {genderHasError ? "Select gender" : " "}
           </FormHelperText>
         </FormControl>
       </div>
       <div className={classes["auth__buttons-box-end"]}>
         <Button onClick={birthSubmitHandler} variant="contained">
-          Siguiente
+          Continue
         </Button>
       </div>
     </AuthFormWrapper>

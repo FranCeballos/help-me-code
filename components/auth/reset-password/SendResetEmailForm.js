@@ -2,8 +2,9 @@ import { useState, useRef } from "react";
 import Link from "next/link";
 import { TextField, Button, CircularProgress } from "@mui/material";
 import { motion, AnimatePresence } from "framer-motion";
+
 import TitleForm from "../signup-steps/TitleForm";
-import AuthFormWrapper from "@/components/UI/AuthFormWrapper";
+
 import classes from "../AuthForm.module.css";
 
 const SendResetEmailForm = () => {
@@ -51,14 +52,14 @@ const SendResetEmailForm = () => {
             transition={{ duration: 0.5 }}
           >
             <TitleForm
-              title="Recuperá tu contraseña"
-              description="No estás solo/a. Todos hemos estado acá en algún momento."
+              title="Reset your password"
+              description="You're not alone. We've all been here."
             />
             <div className={classes["auth__inputs-box"]}>
               <TextField
                 inputRef={emailRef}
                 id="email"
-                label="Email de tu cuenta"
+                label="Email linked to your account"
                 variant="outlined"
                 fullWidth
                 margin="dense"
@@ -71,7 +72,7 @@ const SendResetEmailForm = () => {
                 <div></div>
               ) : (
                 <Link href="/ingresar">
-                  <Button>Atrás</Button>
+                  <Button>Back</Button>
                 </Link>
               )}
               {loading ? (
@@ -80,7 +81,7 @@ const SendResetEmailForm = () => {
                 />
               ) : (
                 <Button onClick={emailSubmitHandler} variant="contained">
-                  Enviar Mail
+                  Send email
                 </Button>
               )}
             </div>
@@ -94,10 +95,10 @@ const SendResetEmailForm = () => {
             transition={{ duration: 0.5 }}
           >
             <h1 className="main-clip-success">
-              Correo para cambiar contraseña enviado.
+              Email sent for resetting your password.
             </h1>
-            <Link href="/ingresar" className="link__style-off width__fit">
-              <Button variant="contained">Ingresar</Button>
+            <Link href="/signin" className="link__style-off width__fit">
+              <Button variant="contained">Sign In</Button>
             </Link>
           </motion.div>
         )}
