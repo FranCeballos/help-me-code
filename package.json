@@ -1,5 +1,5 @@
 {
-  "name": "c3plus",
+  "name": "help-me-code",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.4",
     "@mui/x-date-pickers": "^6.9.0",
+    "@reduxjs/toolkit": "^1.9.7",
     "@sendgrid/mail": "^7.7.0",
     "@vercel/analytics": "^1.0.1",
     "bcryptjs": "^2.4.3",
@@ -24,6 +25,7 @@
     "next-auth": "^4.22.1",
     "nextjs-progressbar": "^0.0.16",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-redux": "^8.1.3"
   }
 }
