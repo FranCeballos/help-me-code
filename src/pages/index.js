@@ -1,7 +1,8 @@
+import { getAllSeries } from "@/src/lib/series";
+
 import NavBarLayout from "../components/layout/NavBarLayout";
 import HeadComponent from "../components/head/Head";
 import RowsContainer from "../components/slider/RowsContainer";
-import { getAllSeries } from "@/src/lib/series";
 
 import classes from "../components/home/HomePage.module.css";
 

@@ -55,6 +55,7 @@ export default async function handler(req, res) {
         createdDate: new Date(Date.now()).toLocaleDateString(),
         resetToken: null,
         resetTokenExpiration: null,
+        isAdmin: false,
       });
       client.close();
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);

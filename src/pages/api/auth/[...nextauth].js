@@ -8,6 +8,21 @@ export const authOptions = {
     jwt: true,
   },
   secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.isAdmin = user.isAdmin;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user = {
+        email: token.email,
+        isAdmin: token.isAdmin,
+      };
+      return session;
+    },
+  },
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
@@ -34,7 +49,7 @@ export const authOptions = {
         }
 
         client.close();
-        return { email: user.email };
+        return user;
       },
     }),
   ],

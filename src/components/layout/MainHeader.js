@@ -34,21 +34,7 @@ const nothing = {
 
 const MainHeader = () => {
   const { data: session, status } = useSession();
-  const [isSearching, setIsSearching] = useState(false);
   const [loadingAuth, setLoadingAuth] = useState(false);
-  const searchInputRef = useRef();
-
-  useEffect(() => {
-    isSearching && searchInputRef.current.focus();
-  }, [isSearching]);
-
-  const isSearchingHandler = () => {
-    setIsSearching(true);
-  };
-
-  const notSearchingHandler = () => {
-    setIsSearching(false);
-  };
 
   const logoutHandler = async () => {
     setLoadingAuth(true);
