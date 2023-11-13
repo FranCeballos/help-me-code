@@ -4,7 +4,8 @@ import { AnimatePresence } from "framer-motion";
 import NextNProgress from "nextjs-progressbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@/src/styles/globals.css";
-import { NotificationContextProvider } from "@/src/store/notification-context";
+import { Provider } from "react-redux";
+import { store } from "../app/store";
 
 const darkTheme = createTheme({
   palette: {
@@ -62,7 +63,7 @@ export default function App({
   pageProps: { session, ...pageProps },
 }) {
   return (
-    <NotificationContextProvider>
+    <Provider store={store}>
       <AnimatePresence mode="wait" initial={false}>
         <SessionProvider session={session}>
           <ThemeProvider theme={darkTheme}>
@@ -74,6 +75,6 @@ export default function App({
           </ThemeProvider>
         </SessionProvider>
       </AnimatePresence>
-    </NotificationContextProvider>
+    </Provider>
   );
 }

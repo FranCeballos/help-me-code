@@ -21,12 +21,12 @@ const handler = async (req, res) => {
   }
   if (req.method === "PATCH") {
     try {
-      const { serieId, addFav } = req.body;
+      const { serieId, serieIsInFavs } = req.body;
       const [user] = await getUser({ email: session.user.email }, { _id: 1 });
       const result = await addOrDeleteFavToUser(
         String(user._id),
         serieId,
-        addFav
+        !serieIsInFavs
       );
 
       if (result.error) {

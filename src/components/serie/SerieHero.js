@@ -1,77 +1,48 @@
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { IconButton, Button, Fab, Popover, Typography } from "@mui/material";
+import { IconButton, Fab, Popover, Typography } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CircularProgress from "@mui/material/CircularProgress";
 import classes from "./Serie.module.css";
 import Link from "next/link";
+import {
+  useLazyGetUserFavsQuery,
+  useToggleFavMutation,
+} from "@/src/features/api/favsApiSlice";
 
 const SerieHero = (props) => {
   const serieData = props.serieData;
+  const { _id: serieId } = serieData;
   const { data: session } = useSession();
-  const [favIsLoading, setFavIsLoading] = useState(true);
-  const [favsData, setFavsData] = useState([]);
 
-  const serieIsInFavs = favsData.includes(serieData._id);
+  const [
+    fetchFavs,
+    {
+      data: fetchFavsData,
+      isLoading: fetchFavsIsLoading,
+      isFetching: fetchFavsIsFetching,
+    },
+  ] = useLazyGetUserFavsQuery();
+  const [toggleFavs, { isLoading: toggleFavsIsLoading }] =
+    useToggleFavMutation();
+
+  const favsData = fetchFavsData?.allFavs || [];
+  const serieIsInFavs = favsData.includes(serieId);
 
   const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     if (session) {
-      const getFavs = async () => {
-        const response = await fetch("/api/favs");
-        const data = await response.json();
-        return data;
-      };
-      getFavs().then((data) => {
-        setFavsData(data.allFavs);
-        setFavIsLoading(false);
-      });
+      fetchFavs();
     }
   }, [session]);
 
-  const addFavHandler = async () => {
+  const handleToggleFav = async () => {
     setAnchorEl(null);
-    setFavIsLoading(true);
-    const response = await fetch("/api/favs", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        serieId: serieData._id,
-        addFav: true,
-      }),
-    });
-    if (response.status === 200) {
-      setFavsData((prev) => {
-        return [...prev, serieData._id];
-      });
-    }
-    setFavIsLoading(false);
-  };
-
-  const deleteFavHandler = async () => {
-    setAnchorEl(null);
-    setFavIsLoading(true);
-    const response = await fetch("/api/favs", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        serieId: serieData._id,
-        addFav: false,
-      }),
-    });
-    if (response.status === 200) {
-      setFavsData((prev) => {
-        return prev.filter((fav) => fav !== serieData._id);
-      });
-    }
-    setFavIsLoading(false);
+    const response = await toggleFavs({ serieId, serieIsInFavs });
+    fetchFavs();
   };
 
   const handlePopoverOpen = (event) => {
@@ -111,7 +82,7 @@ const SerieHero = (props) => {
 
   const favState =
     session &&
-    (favIsLoading ? (
+    (fetchFavsIsLoading || fetchFavsIsFetching || toggleFavsIsLoading ? (
       <CircularProgress size={50} style={{ color: "#fff", padding: 10 }} />
     ) : serieIsInFavs ? (
       <>
@@ -125,7 +96,7 @@ const SerieHero = (props) => {
             width: "50px",
             height: "50px",
           }}
-          onClick={deleteFavHandler}
+          onClick={handleToggleFav}
         >
           <CheckCircleIcon style={{ width: "40px", height: "40px" }} />
         </IconButton>
@@ -143,7 +114,7 @@ const SerieHero = (props) => {
           }}
           onMouseEnter={handlePopoverOpen}
           onMouseLeave={handlePopoverClose}
-          onClick={addFavHandler}
+          onClick={handleToggleFav}
         >
           <AddCircleIcon style={{ width: "40px", height: "40px" }} />
         </IconButton>
