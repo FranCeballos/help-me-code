@@ -99,6 +99,29 @@ const MainHeader = () => {
                 </Link>
               </motion.li>
             )}
+            {session && session.user.isAdmin && (
+              <motion.li
+                initial="rest"
+                whileHover="hover"
+                animate="rest"
+                variants={nothing}
+              >
+                <Link
+                  className={classes["nav__link"]}
+                  href="/content-manager"
+                  initial="rest"
+                  whileHover="hover"
+                  animate="rest"
+                  variants={nothing}
+                >
+                  <p>Manager</p>
+                  <motion.div
+                    className={classes["nav__link-bar"]}
+                    variants={barVariant}
+                  ></motion.div>
+                </Link>
+              </motion.li>
+            )}
           </ul>
         </div>
         <div>

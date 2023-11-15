@@ -5,9 +5,9 @@ import SliderItem from "./SliderItem";
 import classes from "./Slider.module.css";
 import { useState } from "react";
 
-const Slider = (props) => {
-  const seriesLength = props.seriesData.length;
-  const sliderMaxPositionValue = Math.floor((seriesLength - 1) / 4) * -100;
+const Slider = ({ data = [], title }) => {
+  const dataLength = data.length;
+  const sliderMaxPositionValue = Math.floor((dataLength - 1) / 4) * -100;
 
   const sliderPosition = useMotionValue(0);
   const [xPosition, setXPosition] = useState(sliderPosition.get());
@@ -29,8 +29,8 @@ const Slider = (props) => {
     }
   };
   return (
-    <div className={classes["container"]}>
-      <h3 className={classes["row__title"]}>{props.title}</h3>
+    <div className={classes.container}>
+      <h3 className={classes.title}>{title}</h3>
       <div className={classes["slider__container"]}>
         {sliderPosition.get() !== 0 ? (
           <motion.div
@@ -55,8 +55,8 @@ const Slider = (props) => {
           animate={{ translateX: `${xPosition}%` }}
           transition={{ type: "tween", ease: "easeInOut", duration: 0.7 }}
         >
-          {props.seriesData.map((serie) => (
-            <SliderItem key={serie._id} seriesData={serie} />
+          {data.map((item) => (
+            <SliderItem key={item._id} data={item} />
           ))}
           <div className={classes["slider__right-space"]}></div>
         </motion.div>

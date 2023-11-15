@@ -2,16 +2,13 @@ import Link from "next/link";
 import classes from "./SliderItem.module.css";
 import { motion } from "framer-motion";
 
-const RowItem = ({ seriesData }) => {
+const RowItem = ({ data }) => {
   return (
-    <Link
-      className={classes["item__image-link"]}
-      href={`/series/${seriesData._id}`}
-    >
+    <Link className={classes["item__image-link"]} href={`/series/${data._id}`}>
       <motion.img
         className={classes["item__image"]}
-        src={seriesData.imageUrl}
-        alt={seriesData.name}
+        src={data.imageUrl}
+        alt={data.name}
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3 }}
       />

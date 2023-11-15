@@ -5,7 +5,7 @@ import NextNProgress from "nextjs-progressbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@/src/styles/globals.css";
 import { Provider } from "react-redux";
-import { store } from "../app/store";
+import { store } from "../store/store";
 
 const darkTheme = createTheme({
   palette: {
@@ -52,6 +52,15 @@ const darkTheme = createTheme({
       styleOverrides: {
         yearButton: {
           fontSize: 15,
+        },
+      },
+    },
+    MuiTreeView: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "black",
+          color: "white",
+          borderRadius: "5px",
         },
       },
     },

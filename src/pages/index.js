@@ -1,4 +1,4 @@
-import { getAllSeries } from "@/src/lib/series";
+import { getAllPlaylists } from "../lib/playlists";
 
 import NavBarLayout from "../components/layout/NavBarLayout";
 import HeadComponent from "../components/head/Head";
@@ -6,8 +6,9 @@ import RowsContainer from "../components/slider/RowsContainer";
 
 import classes from "../components/home/HomePage.module.css";
 
-const HomePage = (props) => {
+const HomePage = ({ playlists }) => {
   const posterSrc = "./home/solid-black.jpeg";
+
   return (
     <>
       <HeadComponent
@@ -28,7 +29,7 @@ const HomePage = (props) => {
             <source src="/home/hero-video.mp4" type="video/mp4" />
           </video>
         </div>
-        <RowsContainer seriesData={props.allSeries} />
+        <RowsContainer data={playlists} />
       </NavBarLayout>
     </>
   );
@@ -36,20 +37,17 @@ const HomePage = (props) => {
 
 export const getStaticProps = async () => {
   try {
-    const allSeries = await getAllSeries(
-      {},
-      { _id: 1, imageUrl: 1, name: 1, category: 1 }
-    );
+    const playlists = await getAllPlaylists();
     return {
       props: {
-        allSeries: JSON.parse(JSON.stringify(allSeries)),
+        playlists,
       },
       revalidate: 600,
     };
   } catch (error) {
     return {
       props: {
-        allSeries: ["Something went wrong"],
+        playlists: ["Something went wrong"],
       },
     };
   }

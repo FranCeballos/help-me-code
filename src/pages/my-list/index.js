@@ -12,8 +12,8 @@ const MyFavsPage = (props) => {
   return (
     <NavBarLayout>
       <HeadComponent
-        title="Mi Lista"
-        description="Mira todos tus series guardadas"
+        title="My List"
+        description="Save all your favorite playlists."
       ></HeadComponent>
       <MyFavs userFavs={userFavs} />
     </NavBarLayout>
@@ -40,7 +40,6 @@ export const getServerSideProps = async (context) => {
     return new ObjectId(id);
   });
   const allFavs = await getAllSeries({ _id: { $in: favsIds } });
-  console.log(allFavs);
   return {
     props: {
       userFavs: allFavs,

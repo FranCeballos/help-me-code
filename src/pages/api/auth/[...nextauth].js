@@ -35,7 +35,7 @@ export const authOptions = {
 
         if (!user) {
           client.close();
-          throw new Error("No hay un usuario registrado con ese email");
+          throw new Error("Email not registered");
         }
 
         const passwordIsValid = await verifyPassword(
@@ -45,7 +45,7 @@ export const authOptions = {
 
         if (!passwordIsValid) {
           client.close();
-          throw new Error("Email y/o contraseña no son correctas");
+          throw new Error("Invalid or wrong credentials.");
         }
 
         client.close();
