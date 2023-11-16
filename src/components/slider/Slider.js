@@ -6,6 +6,7 @@ import classes from "./Slider.module.css";
 import { useState } from "react";
 
 const Slider = ({ data = [], title }) => {
+  const dataTemporalFix = [];
   const dataLength = data.length;
   const sliderMaxPositionValue = Math.floor((dataLength - 1) / 4) * -100;
 
@@ -55,7 +56,7 @@ const Slider = ({ data = [], title }) => {
           animate={{ translateX: `${xPosition}%` }}
           transition={{ type: "tween", ease: "easeInOut", duration: 0.7 }}
         >
-          {data.map((item) => (
+          {dataTemporalFix.map((item) => (
             <SliderItem key={item._id} data={item} />
           ))}
           <div className={classes["slider__right-space"]}></div>

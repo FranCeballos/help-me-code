@@ -1,6 +1,4 @@
-import { ObjectId } from "mongodb";
 import { motion, AnimatePresence } from "framer-motion";
-import { getAllSeries } from "@/src/lib/series";
 
 import Serie from "@/src/components/serie/Serie";
 import HeadComponent from "@/src/components/head/Head";
@@ -9,15 +7,11 @@ import NavBarLayout from "@/src/components/layout/NavBarLayout";
 import classes from "@/src/components/serie/Serie.module.css";
 
 const SeriePage = (props) => {
-  const serieData = props.serieData;
   return (
     <>
-      <HeadComponent
-        title={serieData.name}
-        description={serieData.description}
-      ></HeadComponent>
+      <HeadComponent title="" description=""></HeadComponent>
       <NavBarLayout>
-        <AnimatePresence mode="wait">
+        {/* <AnimatePresence mode="wait">
           <motion.div
             className={classes["serie__container"]}
             initial={{ y: "100%" }}
@@ -27,14 +21,14 @@ const SeriePage = (props) => {
           >
             <Serie serieData={serieData} />
           </motion.div>
-        </AnimatePresence>
+        </AnimatePresence> */}
       </NavBarLayout>
     </>
   );
 };
 
 export const getStaticPaths = async () => {
-  const seriesData = await getAllSeries({}, { _id: 1 });
+  const seriesData = [];
   const pathsWithParams = seriesData.map((serieId) => ({
     params: { serieId: serieId._id },
   }));
@@ -47,7 +41,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context) => {
   const serieId = context.params.serieId;
-  const [serie] = await getAllSeries({ _id: new ObjectId(serieId) });
+  const serie = [];
 
   if (!serie._id) {
     return {

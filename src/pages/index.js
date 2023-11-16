@@ -6,8 +6,9 @@ import RowsContainer from "../components/slider/RowsContainer";
 
 import classes from "../components/home/HomePage.module.css";
 
-const HomePage = ({ playlists }) => {
+const HomePage = ({ playlistsData }) => {
   const posterSrc = "./home/solid-black.jpeg";
+  const playlists = JSON.parse(playlistsData);
 
   return (
     <>
@@ -40,14 +41,14 @@ export const getStaticProps = async () => {
     const playlists = await getAllPlaylists();
     return {
       props: {
-        playlists,
+        playlistsData: JSON.stringify(playlists),
       },
       revalidate: 600,
     };
   } catch (error) {
     return {
       props: {
-        playlists: ["Something went wrong"],
+        playlistsData: ["Something went wrong"],
       },
     };
   }
