@@ -1,0 +1,34 @@
+.container {
+  width: 100%;
+  max-width: 425px;
+  height: fit-content;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  background-color: rgb(27, 27, 27);
+  border-radius: 10px;
+  padding: 40px;
+}
+
+.title {
+  width: 100%;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+}
+
+.buttons__container {
+  width: 100%;
+  height: 35px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.error__text {
+  font-size: 1.5rem;
+  color: #f44336;
+}

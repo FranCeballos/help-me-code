@@ -1,12 +1,24 @@
+import Link from "next/link";
+import { AnimatePresence, motion } from "framer-motion";
 import TreeViewContainer from "./TreeViewContainer";
+import ActionButtons from "./ActionButtons";
 import classes from "./ManagerContainer.module.css";
 const ManagerContainer = ({ subjects }) => {
   return (
     <div className={classes.container}>
-      <h1 className="main-clip-text">Content Manager</h1>
-      <div className={classes["content__container"]}>
-        <TreeViewContainer subjects={subjects} />
-      </div>
+      <AnimatePresence>
+        <Link href="/content-manager">
+          <h1 className="main-clip-text">Content Manager</h1>
+        </Link>
+        <ActionButtons />
+        <motion.div
+          key="content"
+          layout
+          className={classes["content__container"]}
+        >
+          <TreeViewContainer subjects={subjects} />
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };

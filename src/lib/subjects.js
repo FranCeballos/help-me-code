@@ -8,10 +8,10 @@ export const getAllSubjects = async () => {
   } catch (error) {
     return "Cannot connect to database. Try again in a minute.";
   }
+  const db = client.db();
 
   // Get all subjects
   try {
-    const db = client.db();
     const subjects = await db
       .collection("subjects")
       .aggregate([
