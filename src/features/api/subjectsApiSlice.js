@@ -4,6 +4,11 @@ export const subjectsApiSlice = createApi({
   reducerPath: "subjectsApi",
   baseQuery: fetchBaseQuery({ baseUrl: "/api/subjects" }),
   endpoints: (builder) => ({
+    getAllSubjects: builder.query({
+      query: () => ({
+        url: "",
+      }),
+    }),
     postCreateSubject: builder.mutation({
       query: ({ ...body }) => ({
         url: "",
@@ -14,4 +19,5 @@ export const subjectsApiSlice = createApi({
   }),
 });
 
-export const { usePostCreateSubjectMutation } = subjectsApiSlice;
+export const { useGetAllSubjectsQuery, usePostCreateSubjectMutation } =
+  subjectsApiSlice;

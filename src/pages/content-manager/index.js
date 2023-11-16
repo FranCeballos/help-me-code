@@ -4,16 +4,15 @@ import { getServerSession } from "next-auth";
 import NavBarLayout from "@/src/components/layout/NavBarLayout";
 import HeadComponent from "@/src/components/head/Head";
 import ManagerContainer from "@/src/components/manager/ManagerContainer";
-import { getAllSubjects } from "@/src/lib/subjects";
 
-const ContentManagerPage = ({ subjects }) => {
+const ContentManagerPage = () => {
   return (
     <NavBarLayout>
       <HeadComponent
         title="Content Manager"
         description="Manage all your content"
       ></HeadComponent>
-      <ManagerContainer subjects={JSON.parse(subjects)} />
+      <ManagerContainer />
     </NavBarLayout>
   );
 };
@@ -28,10 +27,8 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-  const subjects = await getAllSubjects();
-  return {
-    props: { subjects: JSON.stringify(subjects) },
-  };
+
+  return { props: {} };
 };
 
 export default ContentManagerPage;

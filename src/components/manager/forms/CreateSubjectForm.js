@@ -11,13 +11,17 @@ import {
   CircularProgress,
 } from "@mui/material";
 import classes from "./CreateSubjectForm.module.css";
-import { usePostCreateSubjectMutation } from "@/src/features/api/subjectsApiSlice";
+import {
+  useGetAllSubjectsQuery,
+  usePostCreateSubjectMutation,
+} from "@/src/features/api/subjectsApiSlice";
 import { useRouter } from "next/router";
 
 const CreateSubjectForm = (props) => {
   const nameRef = useRef(null);
   const selectRef = useRef(null);
   const { push } = useRouter();
+  const { refetch } = useGetAllSubjectsQuery();
   const [createSubject, createSubjectResult] = usePostCreateSubjectMutation();
   const {
     isLoading: createSubjectIsLoading,
@@ -37,6 +41,7 @@ const CreateSubjectForm = (props) => {
 
       if (data?.isSuccess) {
         push("/content-manager");
+        refetch();
       }
     }
   };

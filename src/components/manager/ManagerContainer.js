@@ -3,11 +3,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import TreeViewContainer from "./TreeViewContainer";
 import ActionButtons from "./ActionButtons";
 import classes from "./ManagerContainer.module.css";
-const ManagerContainer = ({ subjects }) => {
+const ManagerContainer = () => {
   return (
     <div className={classes.container}>
       <AnimatePresence>
-        <Link href="/content-manager">
+        <Link key="title" href="/content-manager">
           <h1 className="main-clip-text">Content Manager</h1>
         </Link>
         <ActionButtons />
@@ -16,7 +16,7 @@ const ManagerContainer = ({ subjects }) => {
           layout
           className={classes["content__container"]}
         >
-          <TreeViewContainer subjects={subjects} />
+          <TreeViewContainer />
         </motion.div>
       </AnimatePresence>
     </div>

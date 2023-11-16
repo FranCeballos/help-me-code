@@ -1,6 +1,39 @@
 import { connectToDatabase } from "@/src/lib/db";
 
 const handler = async (req, res) => {
+  if (req.method === "GET") {
+    // Connect to db
+    let client;
+    try {
+      client = await connectToDatabase();
+    } catch (error) {
+      return "Can't connect to database. Try again in a minute.";
+    }
+    const db = client.db();
+
+    // Get all subjects
+    try {
+      const subjects = await db
+        .collection("subjects")
+        .aggregate([
+          {
+            $lookup: {
+              from: "categories",
+              localField: "categories",
+              foreignField: "customId",
+              as: "categoriesData",
+            },
+          },
+        ])
+        .toArray();
+
+      client.close();
+      return res.status(200).json({ subjects });
+    } catch (error) {
+      client?.close();
+      return res.status(500).json({ message: error.message });
+    }
+  }
   if (req.method === "POST") {
     const { title, role } = req.body;
 
