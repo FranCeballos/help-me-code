@@ -10,6 +10,7 @@ import { CircularProgress } from "@mui/material";
 
 const TreeViewContainer = () => {
   const { data, isLoading } = useGetAllSubjectsQuery();
+  console.log(data);
   const treeData = {
     id: "root",
     name: "Front End",
@@ -29,7 +30,7 @@ const TreeViewContainer = () => {
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpanded={["root"]}
         defaultExpandIcon={<ChevronRightIcon />}
-        sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
+        sx={{ minHeight: 500, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
       >
         {isLoading ? <CircularProgress size={30} /> : renderTree(treeData)}
       </TreeView>
