@@ -20,7 +20,7 @@ const ContentManagerPage = ({ subjects }) => {
 
 export const getServerSideProps = async (context) => {
   const session = await getServerSession(context.req, context.res, authOptions);
-  if (!session && !session.user.isAdmin) {
+  if (!session && !session?.user?.isAdmin) {
     return {
       redirect: {
         destination: "/",

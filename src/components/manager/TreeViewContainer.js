@@ -2,38 +2,33 @@ import * as React from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import { TreeView } from "@mui/x-tree-view/TreeView";
-import { TreeItem } from "@mui/x-tree-view/TreeItem";
 
 import classes from "./TreeViewContainer.module.css";
+import { renderTree } from "@/src/lib/renderTree";
 
 const TreeViewContainer = ({ subjects }) => {
+  const data = {
+    id: "root",
+    name: "Front End",
+    children: subjects.map((item, index) => ({
+      id: `${index + 1}_${item.customId}`,
+      name: item.title,
+      children: item.categoriesData.map((i, iIndex) => ({
+        id: `${index + 1}.${iIndex + 1}_${i.customId}`,
+        name: i.title,
+      })),
+    })),
+  };
   return (
     <div className={classes.container}>
       <TreeView
-        aria-label="file system navigator"
+        aria-label="rich object"
         defaultCollapseIcon={<ExpandMoreIcon />}
+        defaultExpanded={["root"]}
         defaultExpandIcon={<ChevronRightIcon />}
         sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: "auto" }}
       >
-        <TreeItem nodeId="1" label="Front End">
-          {subjects
-            ? subjects.map((item, index) => (
-                <TreeItem
-                  key={`1.${index}`}
-                  nodeId={`1.${index}`}
-                  label={item.title}
-                >
-                  {item.categoriesData.map((ctg, ctgIndex) => (
-                    <TreeItem
-                      key={`1.${index}.${ctgIndex}`}
-                      nodeId={`1.${index}.${ctgIndex}`}
-                      label={ctg.title}
-                    />
-                  ))}
-                </TreeItem>
-              ))
-            : null}
-        </TreeItem>
+        {renderTree(data)}
       </TreeView>
     </div>
   );
