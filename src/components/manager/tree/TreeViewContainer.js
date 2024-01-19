@@ -14,7 +14,6 @@ import classes from "./TreeViewContainer.module.css";
 const TreeViewContainer = () => {
   const { data, isLoading } = useGetAllSubjectsQuery();
   const dispatch = useDispatch();
-  const selectedNodeId = useSelector((state) => state.manager.selectedNodeId);
 
   const treeData = {
     id: "ROOT",
@@ -28,6 +27,7 @@ const TreeViewContainer = () => {
       })),
     })),
   };
+
   return (
     <div className={classes.container}>
       <TreeView

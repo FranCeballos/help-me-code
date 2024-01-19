@@ -24,6 +24,11 @@ const handler = async (req, res) => {
               as: "categoriesData",
             },
           },
+          {
+            $sort: {
+              order: 1,
+            },
+          },
         ])
         .toArray();
 

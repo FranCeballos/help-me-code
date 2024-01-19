@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
-import TreeViewContainer from "./TreeViewContainer";
+import TreeViewContainer from "./tree/TreeViewContainer";
 import ActionButtons from "./ActionButtons";
 import classes from "./ManagerContainer.module.css";
 import { useSelector } from "react-redux";
+import LevelsContainer from "./levels/LevelsContainer";
 
 const ManagerContainer = () => {
   return (
@@ -19,6 +20,7 @@ const ManagerContainer = () => {
           className={classes["content__container"]}
         >
           <TreeViewContainer />
+          <LevelsContainer />
         </motion.div>
       </AnimatePresence>
     </div>
