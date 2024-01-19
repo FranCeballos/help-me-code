@@ -16,8 +16,18 @@ export const subjectsApiSlice = createApi({
         body,
       }),
     }),
+    updateSubjectsOrder: builder.mutation({
+      query: ({ ...body }) => ({
+        url: "/order",
+        method: "PUT",
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetAllSubjectsQuery, usePostCreateSubjectMutation } =
-  subjectsApiSlice;
+export const {
+  useGetAllSubjectsQuery,
+  usePostCreateSubjectMutation,
+  useUpdateSubjectsOrderMutation,
+} = subjectsApiSlice;
