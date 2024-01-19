@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useRouter } from "next/router";
 import {
   TextField,
   FormControl,
@@ -10,33 +11,38 @@ import {
   Button,
   CircularProgress,
 } from "@mui/material";
-import { useRouter } from "next/router";
 import {
   useGetAllSubjectsQuery,
   usePostCreateSubjectMutation,
 } from "@/src/features/api/subjectsApiSlice";
 import classes from "./CreateForm.module.css";
+import { usePostCreateCategoryMutation } from "@/src/features/api/categoryApiSlice";
 
-const CreateSubjectForm = (props) => {
+const CreateCategoryForm = (props) => {
   const nameRef = useRef(null);
   const selectRef = useRef(null);
   const { push } = useRouter();
-  const { refetch } = useGetAllSubjectsQuery();
-  const [createSubject, createSubjectResult] = usePostCreateSubjectMutation();
   const {
-    isLoading: createSubjectIsLoading,
+    data: subjectsData,
+    isLoading: subjectsAreLoading,
+    refetch,
+  } = useGetAllSubjectsQuery();
+  const [createCategory, createCategoryResult] =
+    usePostCreateCategoryMutation();
+  const {
+    isLoading: createCategoryIsLoading,
     isError,
     error,
-  } = createSubjectResult;
+  } = createCategoryResult;
 
   const submitHandler = async () => {
     const nameValue = nameRef.current.value;
     const selectValue = selectRef.current.value;
 
     if (nameValue && selectValue) {
-      const { data } = await createSubject({
+      const { data } = await createCategory({
         title: nameValue,
-        role: selectValue,
+        subject: selectValue,
       });
 
       if (data?.isSuccess) {
@@ -54,38 +60,43 @@ const CreateSubjectForm = (props) => {
       transition={{ duration: 1, type: "spring" }}
       className={classes.container}
     >
-      <p className={classes.title}>Create Subject</p>
+      <p className={classes.title}>Create Category</p>
       <TextField
         inputRef={nameRef}
         fullWidth
-        placeholder="Subject name"
-        label="Name"
+        placeholder="Category name"
+        label="Category name"
       />
       <FormControl fullWidth>
-        <InputLabel id="environment-select-label">Environment</InputLabel>
+        <InputLabel id="subject-select-label">Subject</InputLabel>
         <Select
           inputRef={selectRef}
-          labelId="environment-select-label"
-          id="environment-select"
-          label="Environment"
+          labelId="subject-select-label"
+          id="subject-select"
+          label="Subject"
           required
         >
-          <MenuItem value="frontend">Front End</MenuItem>
-          <MenuItem value="backend">Back End</MenuItem>
+          {!subjectsAreLoading
+            ? subjectsData.subjects.map((subject) => (
+                <MenuItem key={subject._id} value={subject.customId}>
+                  {subject.title}
+                </MenuItem>
+              ))
+            : null}
         </Select>
       </FormControl>
       {isError && (
         <p className={classes["error__text"]}>{error.data.message}</p>
       )}
       <div className={classes["buttons__container"]}>
-        {createSubjectIsLoading ? (
+        {createCategoryIsLoading ? (
           <div></div>
         ) : (
           <Link href="/content-manager">
             <Button>Cancel</Button>
           </Link>
         )}
-        {createSubjectIsLoading ? (
+        {createCategoryIsLoading ? (
           <CircularProgress size={30} />
         ) : (
           <Button variant="contained" onClick={submitHandler}>
@@ -97,4 +108,4 @@ const CreateSubjectForm = (props) => {
   );
 };
 
-export default CreateSubjectForm;
+export default CreateCategoryForm;

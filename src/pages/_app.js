@@ -5,7 +5,7 @@ import NextNProgress from "nextjs-progressbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "@/src/styles/globals.css";
 import { Provider } from "react-redux";
-import { store } from "../store/store";
+import { store } from "../features/store";
 
 const darkTheme = createTheme({
   palette: {

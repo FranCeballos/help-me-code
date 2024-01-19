@@ -87,7 +87,7 @@ const MainHeader = () => {
                   className={classes["nav__link"]}
                   href="/my-list"
                   initial="rest"
-                  whileHover="hover"
+                  whilehover="hover"
                   animate="rest"
                   variants={nothing}
                 >
@@ -110,7 +110,7 @@ const MainHeader = () => {
                   className={classes["nav__link"]}
                   href="/content-manager"
                   initial="rest"
-                  whileHover="hover"
+                  whilehover="hover"
                   animate="rest"
                   variants={nothing}
                 >

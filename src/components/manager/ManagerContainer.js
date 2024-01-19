@@ -3,6 +3,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import TreeViewContainer from "./TreeViewContainer";
 import ActionButtons from "./ActionButtons";
 import classes from "./ManagerContainer.module.css";
+import { useSelector } from "react-redux";
+
 const ManagerContainer = () => {
   return (
     <div className={classes.container}>

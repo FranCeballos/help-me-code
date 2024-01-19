@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { Button } from "@mui/material";
 import CreateSubjectForm from "./forms/CreateSubjectForm";
 import classes from "./ActionButtons.module.css";
+import CreateCategoryForm from "./forms/CreateCategoryForm";
 
 const ActionButtons = (props) => {
   const {
@@ -13,6 +14,7 @@ const ActionButtons = (props) => {
   const forms = {
     undefined: null,
     subject: <CreateSubjectForm />,
+    category: <CreateCategoryForm />,
   };
   return (
     <motion.div key="buttons" className={classes.container}>
