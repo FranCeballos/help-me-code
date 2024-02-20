@@ -2,7 +2,6 @@ import { connectToDatabase } from "@/src/lib/db";
 const handler = async (req, res) => {
   if (req.method === "GET") {
     const { subjectId } = req.query;
-    console.log(subjectId);
     // Connect to db
     let client;
     try {
@@ -18,7 +17,7 @@ const handler = async (req, res) => {
       const subject = await db
         .collection("subjects")
         .aggregate([
-          { $match: { customId: "internet" } },
+          { $match: { customId: subjectId } },
           {
             $lookup: {
               from: "categories",
