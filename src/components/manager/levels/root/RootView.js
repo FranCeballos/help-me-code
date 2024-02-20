@@ -6,10 +6,10 @@ import {
 
 import ReorderList from "../ReorderList";
 import { Button, CircularProgress } from "@mui/material";
-import classes from "./RootView.module.css";
+import classes from "../View.module.css";
 
 const RootView = (props) => {
-  const { data, isLoading, refetch } = useGetAllSubjectsQuery();
+  const { data, isLoading, refetch, isFetching } = useGetAllSubjectsQuery();
   const [updateSubjectsOrder, result] = useUpdateSubjectsOrderMutation();
 
   const [items, setItems] = useState([]);
@@ -40,7 +40,7 @@ const RootView = (props) => {
   return (
     <>
       <div className={classes.actions}>
-        <h2 className={classes.title}>Order Subjects</h2>
+        <h2 className={classes.title}>Subjects</h2>
         {!result.isLoading ? (
           <Button
             onClick={saveHandler}
@@ -55,7 +55,15 @@ const RootView = (props) => {
         )}
       </div>
       {!isLoading && !result.isLoading && items.length > 0 && (
-        <ReorderList items={items} onChange={changeOrderHandler} />
+        <>
+          <h3 className={classes.subtitle}>Reorder</h3>
+          <ReorderList items={items} onChange={changeOrderHandler} />
+        </>
+      )}
+      {isFetching && (
+        <div className={classes["spinner__container"]}>
+          <CircularProgress />
+        </div>
       )}
     </>
   );

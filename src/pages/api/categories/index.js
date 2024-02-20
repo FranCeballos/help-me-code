@@ -18,10 +18,23 @@ const handler = async (req, res) => {
 
     // create category
     try {
+      const subjectData = await db
+        .collection("subjects")
+        .find({ customId: subject })
+        .project({ categories: 1 })
+        .toArray();
+
+      if (subjectData.length === 0) {
+        throw new Error("Subject not found.");
+      }
+      const categoriesLength = subjectData[0].categories.length;
+      const order = categoriesLength > 0 ? categoriesLength : 0;
+      console.log("order", order);
       await db.collection("categories").insertOne({
         customId,
         title,
         playlists: [],
+        order,
       });
     } catch (error) {
       return res.status(500).json({

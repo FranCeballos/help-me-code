@@ -13,20 +13,27 @@ import {
 } from "@mui/material";
 import {
   useGetAllSubjectsQuery,
+  useLazyGetSubjectByIdQuery,
   usePostCreateSubjectMutation,
 } from "@/src/features/api/subjectsApiSlice";
 import classes from "./CreateForm.module.css";
 import { usePostCreateCategoryMutation } from "@/src/features/api/categoryApiSlice";
+import { useSelector } from "react-redux";
 
 const CreateCategoryForm = (props) => {
+  const { name: subjectId } = useSelector(
+    (state) => state.manager.selectedNodeId
+  );
   const nameRef = useRef(null);
   const selectRef = useRef(null);
   const { push } = useRouter();
+  const [fetchSubjectById] = useLazyGetSubjectByIdQuery();
   const {
     data: subjectsData,
     isLoading: subjectsAreLoading,
     refetch,
   } = useGetAllSubjectsQuery();
+
   const [createCategory, createCategoryResult] =
     usePostCreateCategoryMutation();
   const {
@@ -48,6 +55,7 @@ const CreateCategoryForm = (props) => {
       if (data?.isSuccess) {
         push("/content-manager");
         refetch();
+        fetchSubjectById(subjectId);
       }
     }
   };

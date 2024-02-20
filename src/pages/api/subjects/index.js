@@ -25,8 +25,13 @@ const handler = async (req, res) => {
             },
           },
           {
-            $sort: {
-              order: 1,
+            $addFields: {
+              categoriesData: {
+                $sortArray: {
+                  input: "$categoriesData",
+                  sortBy: { order: 1 },
+                },
+              },
             },
           },
         ])

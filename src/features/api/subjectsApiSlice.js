@@ -9,6 +9,11 @@ export const subjectsApiSlice = createApi({
         url: "",
       }),
     }),
+    getSubjectById: builder.query({
+      query: (subjectId) => ({
+        url: `/${subjectId}`,
+      }),
+    }),
     postCreateSubject: builder.mutation({
       query: ({ ...body }) => ({
         url: "",
@@ -23,11 +28,20 @@ export const subjectsApiSlice = createApi({
         body,
       }),
     }),
+    updateCategoriesOrder: builder.mutation({
+      query: ({ subjectId, ...body }) => ({
+        url: `/${subjectId}/order`,
+        method: "PUT",
+        body,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetAllSubjectsQuery,
+  useLazyGetSubjectByIdQuery,
   usePostCreateSubjectMutation,
   useUpdateSubjectsOrderMutation,
+  useUpdateCategoriesOrderMutation,
 } = subjectsApiSlice;

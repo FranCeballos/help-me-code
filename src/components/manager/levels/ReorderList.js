@@ -5,7 +5,6 @@ import classes from "./ReorderList.module.css";
 
 const ReorderList = ({ items, onChange }) => {
   const setItems = (newOrder) => {
-    console.log(newOrder);
     onChange(newOrder);
   };
 
