@@ -14,9 +14,10 @@ const handler = async (req, res) => {
         error: "Error connecting to database. Try again in a few minutes.",
       });
     }
+    const session = await client.startSession();
     const db = client.db();
 
-    // create category
+    // create category and add to subject
     try {
       const subjectData = await db
         .collection("subjects")
@@ -27,34 +28,38 @@ const handler = async (req, res) => {
       if (subjectData.length === 0) {
         throw new Error("Subject not found.");
       }
+
       const categoriesLength = subjectData[0].categories.length;
       const order = categoriesLength > 0 ? categoriesLength : 0;
-      console.log("order", order);
-      await db.collection("categories").insertOne({
-        customId,
-        title,
-        playlists: [],
-        order,
+
+      await session.withTransaction(async () => {
+        await db.collection("categories").insertOne(
+          {
+            customId,
+            title,
+            playlists: [],
+            order,
+          },
+          { session }
+        );
+        await db
+          .collection("subjects")
+          .updateOne(
+            { customId: subject },
+            { $push: { categories: customId } },
+            { session }
+          );
       });
     } catch (error) {
+      await session?.endSession();
+      await client?.close();
       return res.status(500).json({
-        error:
-          "Error connecting to database when creating the category document.",
+        error: "Error connecting to database when creating a category.",
       });
     }
 
-    // add category to subject
-    try {
-      await db
-        .collection("subjects")
-        .updateOne({ customId: subject }, { $push: { categories: customId } });
-    } catch (error) {
-      return res.status(500).json({
-        error:
-          "Error connecting to database when adding the category a subject.",
-      });
-    }
-
+    await session.endSession();
+    await client.close();
     return res.status(200).json({
       message: "Category created",
       category: {

@@ -44,6 +44,7 @@ const handler = async (req, res) => {
       return res.status(500).json({ message: error.message });
     }
   }
+
   if (req.method === "POST") {
     const { title, role } = req.body;
 
