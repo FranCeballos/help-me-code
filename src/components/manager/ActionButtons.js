@@ -10,6 +10,7 @@ import CreateCategoryForm from "./forms/CreateCategoryForm";
 const ActionButtons = (props) => {
   const {
     query: { create },
+    push,
   } = useRouter();
   const forms = {
     undefined: null,
@@ -19,12 +20,26 @@ const ActionButtons = (props) => {
   return (
     <motion.div key="buttons" className={classes.container}>
       <div className={classes["buttons__container"]}>
-        <Link href="/content-manager?create=subject">
-          <Button variant="outlined">Create subject</Button>
-        </Link>
-        <Link href="/content-manager?create=category">
-          <Button variant="outlined">Create category</Button>
-        </Link>
+        <Button
+          variant="outlined"
+          onClick={() =>
+            push("/content-manager?create=subject", undefined, {
+              shallow: true,
+            })
+          }
+        >
+          Create subject
+        </Button>
+        <Button
+          variant="outlined"
+          onClick={() =>
+            push("/content-manager?create=category", undefined, {
+              shallow: true,
+            })
+          }
+        >
+          Create category
+        </Button>
       </div>
       {forms[create]}
     </motion.div>

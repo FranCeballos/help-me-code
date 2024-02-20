@@ -100,9 +100,13 @@ const CreateCategoryForm = (props) => {
         {createCategoryIsLoading ? (
           <div></div>
         ) : (
-          <Link href="/content-manager">
-            <Button>Cancel</Button>
-          </Link>
+          <Button
+            onClick={() =>
+              push("/content-manager", undefined, { shallow: true })
+            }
+          >
+            Cancel
+          </Button>
         )}
         {createCategoryIsLoading ? (
           <CircularProgress size={30} />
