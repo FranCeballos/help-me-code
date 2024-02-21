@@ -38,11 +38,11 @@ const ModalEditCategory = (props) => {
   }, [data]);
 
   const submitHandler = async () => {
-    const { data } = await updateCategory({
+    const { data: resultData } = await updateCategory({
       customId: categoryId,
       body: { title },
     });
-    if (data?.isSuccess) {
+    if (resultData?.isSuccess) {
       refetchAllSubjects();
       fetchSubjectById(subjectId);
       push("/content-manager", undefined, { shallow: true });
@@ -67,9 +67,10 @@ const ModalEditCategory = (props) => {
               />
               <div className={classes["actions__container"]}>
                 <Button
-                  onClick={() =>
-                    push("content-manager", undefined, { shallow: true })
-                  }
+                  onClick={() => {
+                    setTitle(data.category.title);
+                    push("content-manager", undefined, { shallow: true });
+                  }}
                 >
                   Cancel
                 </Button>
