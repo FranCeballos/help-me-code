@@ -1,9 +1,10 @@
 import { connectToDatabase } from "@/src/lib/db";
+import { createCustomId } from "@/src/lib/formaters";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const { title, subject } = req.body;
-    const customId = title.toLowerCase().replaceAll(" ", "-");
+    const customId = createCustomId(title);
     // Connect to db
     let client;
     try {

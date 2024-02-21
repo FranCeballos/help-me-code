@@ -9,7 +9,7 @@
   margin-top: 20px;
 }
 
-.item {
+.item__container {
   list-style: none;
   background-color: black;
   width: 100%;
@@ -24,6 +24,21 @@
   border-radius: 10px;
 }
 
-.item:active {
+.item__container:hover .actions__container {
+  opacity: 1;
+  transition: 0.2s ease-out;
+}
+
+.item__container:active {
   cursor: grabbing;
+}
+
+.actions__container {
+  flex: 1 0 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 0;
+  transition: 0.2s ease-out;
 }

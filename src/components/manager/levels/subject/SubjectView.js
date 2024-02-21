@@ -9,6 +9,7 @@ import { useUpdateCategoriesOrderMutation } from "@/src/features/api/subjectsApi
 import { Button, CircularProgress } from "@mui/material";
 import ReorderList from "../ReorderList";
 import classes from "../View.module.css";
+import ModalEditCategory from "./ModalEditCategory";
 
 const SubjectView = (props) => {
   const { name: subjectId } = useSelector(
@@ -91,6 +92,7 @@ const SubjectView = (props) => {
           <CircularProgress size={25} />
         </div>
       )}
+      <ModalEditCategory />
     </>
   );
 };

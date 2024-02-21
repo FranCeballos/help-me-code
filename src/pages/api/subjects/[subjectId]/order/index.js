@@ -3,10 +3,8 @@ import { ObjectId } from "mongodb";
 
 const handler = async (req, res) => {
   if (req.method === "PUT") {
-    const { subjectId } = req.query;
     const { items } = req.body;
-    console.log(subjectId);
-    console.log(items);
+
     // Connect to db
     let client;
     try {
